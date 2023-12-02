@@ -28,6 +28,8 @@ public class likeChatController {
 	@Autowired()
 	public chatMapper chatmapper;
 	
+	
+	
 	// 新增或刪除收藏
 	@RequestMapping("addlike")
 	public String addlike(int id, HttpServletRequest request) {
@@ -64,7 +66,9 @@ public class likeChatController {
 			}
 		}
 		session.setAttribute("All", ct);
-		return "porder/loginSuccess";
+		String ul="LIKECHAT";
+		session.setAttribute("UL", ul);
+		return "porder/addChatSuccess";
 	}
 
 	@RequestMapping("querylike")

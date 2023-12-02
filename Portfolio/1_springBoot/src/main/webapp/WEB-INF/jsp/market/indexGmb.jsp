@@ -31,8 +31,12 @@ List<porder> l=(List<porder>)session.getAttribute("Porder");
     <a href="loginout">登出</a>
   </div>
 </div>
-	</table>
-<div id="header">飛鳥社群</div>
+	<tr><td><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</table>
+<table align=center>
+	<tr align=center>
+	<td><div id="header" >飛鳥社群</div>
+</table>
 <op><table width=600 border=1 align=center cellpadding="5" cellspacing="2">
 	<tr align=center>
 		<td colspan=2 style=background-color:#7AB6CD>第 <a href="gophone?items=手機">1 | </a><a href="gophone?items=電腦">2</a> | 3 | <a href="gophone?items=其他">4</a> 頁

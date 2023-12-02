@@ -39,6 +39,10 @@ switch(ul){
 		content=0.1+";URL="+"gotoplay";
 		response.setHeader("REFRESH",content);
 	break;
+	case "LIKECHAT":
+		content=0.1+";URL="+"index";
+		response.setHeader("REFRESH",content);
+	break;
 	
 }
 

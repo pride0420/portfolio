@@ -37,8 +37,12 @@ for(shopcart s:l){
 						<a href="loginout">登出</a>
 					</div>
 			</div>
-	</table>
-<div id="header">飛鳥社群</div>
+	<tr><td><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</table>
+<table align=center>
+	<tr align=center>
+	<td><div id="header" >飛鳥社群</div>
+</table>
 <op><table width=600 border=1 align=center cellpadding="5" cellspacing="2">
 <tr align=center>
 			<td colspan=2 style=background-color:#7AB6CD><a href="gophone?items=手機"><input type ="button" value="回商城"></a> | 

@@ -1,5 +1,8 @@
 package com.example.demo.vo;
 
+
+//遊戲_答案的vo
+
 public class gameanswer {
 	
 	private Integer id;

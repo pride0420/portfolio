@@ -1,5 +1,7 @@
 package com.example.demo.vo;
 
+//會員的vo
+
 public class member {
 
 	private Integer id;

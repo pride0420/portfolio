@@ -30,10 +30,15 @@ member m=(member)session.getAttribute("M");
     <a href="loginout">登出</a>
   </div>
 </div>
-	</table>
-	<div id="header">飛鳥社群</div>
+	<tr><td><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</table>
+<table align=center>
+	<tr align=center>
+	<td><div id="header" >飛鳥社群</div>
+</table>
+
 <form action="updatename" method="post">
-	<op><table align="center" border=1 width=610  cellpadding="5" cellspacing="2">
+	<op><table align="center" border=1 width=600  cellpadding="5" cellspacing="2">
 		<tr align=center>
 			<td colspan=2>修改資料
 		<tr align=center>

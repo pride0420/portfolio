@@ -30,8 +30,12 @@ member m=(member)session.getAttribute("M");
     <a href="loginout">登出</a>
   </div>
 </div>
+	<tr><td><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </table>
-<div id="header">飛鳥社群</div>
+<table align=center>
+	<tr align=center>
+	<td><div id="header" >飛鳥社群</div>
+</table>
 	<op><table align=center border=1 heigth=500 width=608>
 		<tr align=center>
 			<td colspan=3><h2>遊戲選單</h2>

@@ -33,9 +33,13 @@ List<chat> c=(List<chat>)session.getAttribute("All");
     <a href="loginout">登出</a>
   </div>
 </div>
-	
+	<tr><td><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </table>
-<div id="header">飛鳥社群</div>
+<table align=center>
+	<tr align=center>
+	<td><div id="header" >飛鳥社群</div>
+</table>
+
 <form action="addchat" method="post">
 	<op><table align=center border=1 width=600 cellpadding="5" cellspacing="2">
 		<tr align=center>

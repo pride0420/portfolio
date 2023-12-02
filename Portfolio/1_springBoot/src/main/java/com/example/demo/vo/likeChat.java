@@ -1,5 +1,7 @@
 package com.example.demo.vo;
 
+//收藏留言的vo
+
 public class likeChat {
 
 	private Integer id;

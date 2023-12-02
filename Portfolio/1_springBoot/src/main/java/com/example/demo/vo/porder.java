@@ -1,5 +1,7 @@
 package com.example.demo.vo;
 
+//商品的vo
+
 public class porder {
 	
 	private Integer id;

@@ -2,6 +2,8 @@ package com.example.demo.vo;
 
 import java.sql.Timestamp;
 
+//商城的vo
+
 public class shopcart {
 
 	private Integer id;

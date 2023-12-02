@@ -31,9 +31,12 @@ List<gameplayer> l=(List<gameplayer>)session.getAttribute("PLAYALL");
     <a href="loginout">登出</a>
   </div>
 </div>
-	
+	<tr><td><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </table>
-<div id="header">飛鳥社群</div>
+<table align=center>
+	<tr align=center>
+	<td><div id="header" >飛鳥社群</div>
+</table>
 <form action="addplayer" method="get">
 	<op><table width=610 align=center border=1 cellpadding="5" cellspacing="2">
 		<tr align=center>

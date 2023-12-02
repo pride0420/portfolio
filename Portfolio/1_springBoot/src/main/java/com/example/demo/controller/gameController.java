@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dao.gameAnswerMapper;
+import com.example.demo.dao.gameMapper;
 
 import com.example.demo.vo.gameanswer;
 import com.example.demo.vo.gameplayer;
@@ -20,12 +20,13 @@ import jakarta.servlet.http.HttpSession;
 public class gameController {
 
 	@Autowired()
-	public gameAnswerMapper gameanswermapper;
+	public gameMapper gamemapper;
 
 	@GetMapping("goGame")
 	public String gotoGame() {
 		return "game/gameindex";
 	}
+
 	@GetMapping("gotoplay")
 	public String gotoPlat() {
 		return "game/playAB";
@@ -45,12 +46,12 @@ public class gameController {
 		String n = show(number);
 		;
 		gameanswer ans = new gameanswer(n);
-		gameanswermapper.addGame(ans);
-		List<Integer> ANS = gameanswermapper.queryanswerList(gameanswermapper.queryId());
+		gamemapper.addGame(ans);
+		List<Integer> ANS = gamemapper.queryanswerList(gamemapper.queryId());
 		session.setAttribute("ANS", ANS);
-		gameplayer gp = gameanswermapper.queryplayer(gameanswermapper.queryplayerId());
+		gameplayer gp = gamemapper.queryplayer(gamemapper.queryplayerId());
 		if (gp != null) {
-			gameanswermapper.deletePlayer(gp.getId());
+			gamemapper.deletePlayer(gp.getId());
 		}
 		return "game/playAB";
 	}
@@ -60,10 +61,10 @@ public class gameController {
 	public String addPlayer(String playernub) {
 
 		gameplayer gp = new gameplayer(playernub);
-		gameanswermapper.addPlayer(gp);
+		gamemapper.addPlayer(gp);
 
-		String ans = gameanswermapper.queryanswer(gameanswermapper.queryId()).getAnswernub();
-		String play = gameanswermapper.queryplayer(gameanswermapper.queryplayerId()).getPlayernub();
+		String ans = gamemapper.queryanswer(gamemapper.queryId()).getAnswernub();
+		String play = gamemapper.queryplayer(gamemapper.queryplayerId()).getPlayernub();
 		char[] asw = card(ans);
 		char[] ply = card(play);
 		int A = 0;
@@ -78,38 +79,38 @@ public class gameController {
 				}
 			}
 		}
-		gameplayer gpt = gameanswermapper.queryplayer(gameanswermapper.queryplayerId() - 1);
+		gameplayer gpt = gamemapper.queryplayer(gamemapper.queryplayerId() - 1);
 
 		if (A != 4) {
-			
-			gameplayer gpl = gameanswermapper.queryplayer(gameanswermapper.queryplayerId());
-			
+
+			gameplayer gpl = gamemapper.queryplayer(gamemapper.queryplayerId());
+
 			gpl.setA(A);
 			gpl.setB(B);
 			if (gpt == null) {
 				gpl.setReno(1);
-			} else if(20-(gpt.getReno()+1)==0&&gpt!=null){
-				gameanswermapper.deletePlayer(gameanswermapper.queryplayerId());
+			} else if (20 - (gpt.getReno() + 1) == 0 && gpt != null) {
+				gamemapper.deletePlayer(gamemapper.queryplayerId());
 				return "game/gamelose";
-				}else {
-					gpl.setReno(gpt.getReno() + 1);
-				}
-				
-			
+			} else {
+				gpl.setReno(gpt.getReno() + 1);
+			}
+
 			gpl.getId();
 			System.out.println(gpl.getReno());
-			gameanswermapper.update(gpl);
+			gamemapper.update(gpl);
 			session.setAttribute("PLAY", gpl);
-			List<gameplayer> playall = gameanswermapper.query();
+			List<gameplayer> playall = gamemapper.query();
 			session.setAttribute("PLAYALL", playall);
-			String ul="gameplay";
+			String ul = "gameplay";
 			session.setAttribute("UL", ul);
 			return "porder/addChatSuccess";
-			} else {
-			gameanswermapper.deletePlayer(gameanswermapper.queryplayerId());
+		} else {
+			gamemapper.deletePlayer(gamemapper.queryplayerId());
 			return "game/gameover";
-		}}
-	
+		}
+	}
+
 	// 篩選隨機數
 	public static String show(int[] number) {
 		Random r = new Random();

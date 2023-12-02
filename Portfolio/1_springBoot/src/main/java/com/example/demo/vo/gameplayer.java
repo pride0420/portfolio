@@ -1,5 +1,8 @@
 package com.example.demo.vo;
 
+
+//遊戲_玩家的vo
+
 public class gameplayer {
 
 	private Integer id;

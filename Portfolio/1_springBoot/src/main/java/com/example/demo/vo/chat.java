@@ -2,6 +2,9 @@ package com.example.demo.vo;
 
 import java.sql.Timestamp;
 
+
+//留言的vo
+
 public class chat {
 
 	private Integer id;
