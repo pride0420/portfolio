@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.example.demo.vo.member
+    ,com.example.demo.vo.porder
+    ,java.util.List"%>
+<!DOCTYPE html>
+<%
+member m=(member)session.getAttribute("M");
+List<porder> l=(List<porder>)session.getAttribute("Porder");
+
+%>
+<html>
+<link rel="stylesheet" href="css/loginSuccess.css">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

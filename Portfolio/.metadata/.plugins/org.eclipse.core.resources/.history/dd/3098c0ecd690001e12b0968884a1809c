@@ -1,0 +1,72 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="com.example.demo.vo.member
+    ,java.util.List,com.example.demo.vo.gameplayer"%>
+<!DOCTYPE html>
+<%
+member m=(member)session.getAttribute("M");
+List<gameplayer> l=(List<gameplayer>)session.getAttribute("PLAYALL");
+
+%>
+<html>
+<link rel="stylesheet" href="css/loginSuccess.css">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table align="right" border=0 width=150>
+	<tr align="left">
+		<td><b>歡迎!</b><%=m.getName() %>
+	<tr>
+		<td>
+			<div class="dropdown">
+  <button class="dropbtn">選單</button>
+  <div class="dropdown-content">
+    <a href="queryName">我的文章</a>
+    <a href="querylike">我的最愛</a>
+    <a href="#">商城</a>
+    <a href="goGame">小遊戲</a>
+    <a href="setting">設定</a>
+    <a href="loginout">登出</a>
+  </div>
+</div>
+	
+</table>
+<div id="header">飛鳥社群</div>
+<form action="addplayer" method="get">
+	<op><table width=610 align=center border=1>
+		<tr align=center>
+			<td colspan=8><h2>輸入四個數字(1~9 不重複)</h2>
+		<tr align=center>
+			<td>第一個
+			<td width=30px><input type="text" name="playernub" maxlength=4 minlength=4 size=10 
+			oninput="value=value.replace(/[^\d]/g,'')">
+			
+		<tr align=center>
+			<td colspan=8><input type="submit" value="確定">
+
+	</table></op></form>
+	<op><table width=600 align=center border=1>
+	<%
+		if(l!=null){
+		for(gameplayer o:l){
+			out.println("<tr align=center><td>第"+o.getReno()+
+			"次<td>"+o.getPlayernub()
+			+"<td>"+o.getA()+"A"+o.getB()+"B");
+	
+		}
+		}
+	%>
+	
+	
+	
+	
+	
+	</table></op>
+	
+	
+	
+
+</body>
+</html>

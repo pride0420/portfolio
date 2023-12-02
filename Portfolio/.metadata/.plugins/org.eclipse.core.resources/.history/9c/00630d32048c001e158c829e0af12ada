@@ -1,0 +1,98 @@
+package com.example.demo.controller;
+
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.dao.gameAnswerMapper;
+
+import com.example.demo.vo.gameanswer;
+import com.example.demo.vo.gameplayer;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class gameController {
+	
+	@Autowired()
+	public gameAnswerMapper gameanswermapper;
+	
+	@GetMapping("goGame")
+	public String gotoGame() {
+		return "game/gameindex";
+	}
+	
+	
+	@Autowired()
+	public HttpSession session;
+	//ANSWER
+	@GetMapping("addanswer")
+	public String addanswer() {
+		int[] number=new int[9];
+		for(int i=0;i<number.length;i++){
+            number[i]=i+1;
+           }
+		show(number);
+		gameanswer ans=new gameanswer(number[0],number[1],number[2],number[3]);
+		gameanswermapper.addGame(ans);
+		List<gameanswer> ANS=gameanswermapper.queryanswerList(gameanswermapper.queryId());
+		session.setAttribute("ANS", ANS);
+		return "game/playAB";
+	}
+	
+	
+	
+	@GetMapping("addplayer")
+	public String addPlayer(Integer playernub1, Integer playernub2, Integer playernub3, Integer playernub4) {
+		
+		gameplayer gp=new gameplayer(playernub1,playernub2,playernub3,playernub4);
+		gameanswermapper.addPlayer(gp);
+		
+		List<gameanswer> ans=(List<gameanswer>)session.getAttribute("ANS");
+		List<gameplayer> gpid=gameanswermapper.queryplayerList(gameanswermapper.queryplayerId());
+		int A=0;
+		int B=0;
+		
+		
+		
+		
+		gpid.setA(A);
+		gpid.setB(B);
+		gameanswermapper.update(gpid);
+		List<gameplayer> l=gameanswermapper.query();
+		
+		session.setAttribute("Play", l);
+		
+		return "game/playAB";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//篩選隨機數
+	public static void show(int[] number) {
+		Random r=new Random();
+		for(int i=number.length-1;i>0;i--) {
+			int s=r.nextInt(i+1);
+			int temp=number[i];
+			number[i]=number[s];
+			number[s]=temp;
+		}
+	}
+
+}
+
+

@@ -1,0 +1,19 @@
+package com.example.demo.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.example.demo.vo.porder;
+
+@Mapper
+public interface porderMapper {
+
+	@Select("select * from portfolio.porder")
+	List<porder> queryAll();
+	
+	@Select("select * from portfolio.porder where id=#{id}")
+	List<porder> queryId(int id);
+	
+}

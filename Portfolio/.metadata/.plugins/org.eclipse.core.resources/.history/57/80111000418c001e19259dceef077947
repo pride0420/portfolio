@@ -1,0 +1,107 @@
+package com.example.demo.controller;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.demo.dao.textMapper;
+import com.example.demo.vo.text;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class textController {
+
+	@Autowired()
+	public textMapper textmapper;
+	
+	@Autowired()
+	public HttpSession session;
+	
+	
+	@GetMapping("addtext")
+	public String addpporder(String porder,Integer munch,HttpServletRequest request) {
+	
+		String[] p=request.getParameterValues("porder");
+		String Porder=Arrays.toString(p);
+		Porder=Porder.substring(1,Porder.length()-1);
+		String[] m=request.getParameterValues("munch");
+		String Munch=Arrays.toString(m);
+		Munch=Munch.substring(1,Munch.length()-1);
+		
+		text t=new text(Porder,Munch);
+		textmapper.add(t);
+		return "textindex.html";
+	}
+	
+	@GetMapping("queryAlltext")
+	public String queryAll() {
+		List<text> t=textmapper.queryAll();
+		session.setAttribute("T", t);
+		int k=0;
+		text te=textmapper.queryId(4);
+		StringBuilder T=new StringBuilder(te.getPorder());
+		String text;
+		int i=T.indexOf(",");
+	    
+		for(int j=0;j<T.length();j++) {
+			char c=T.charAt(j);
+			if(c==',') {
+				k++;
+			}
+		}
+		int s=0;
+		String[] tex=new String[k+1];
+		for(int j=0;j<T.length();j++) {
+			i=T.indexOf(",");
+			
+			if(i!=-1) {
+				text=T.substring(0 ,i);
+				tex[j]=text;
+				T.delete(0, i+1);
+		}}
+		T=new StringBuilder(te.getPorder());
+		s=T.lastIndexOf(",");
+		text=T.substring(s+1);
+		tex[k]=text;
+		for(int h=0;h<tex.length;h++) {
+		for(int p=0;p<1;p++) {
+			
+			switch(tex[h]) {
+			case "1":
+				tex[h]="蘋果";
+				
+				break;
+			case "2":
+				tex[h]="香蕉";
+				
+				break;
+			case "3":
+				tex[h]="草莓";
+			
+				break;
+			case "4":
+				tex[h]="鳳梨";
+				
+				break;
+			}
+		}
+		}
+		//session.setAttribute("TEXT", text);
+		session.setAttribute("Last", tex);
+		
+		
+		return "text";
+	}
+	
+	@GetMapping("")
+	public String queryId(int id) {
+		
+		
+		return "text";
+	}
+}

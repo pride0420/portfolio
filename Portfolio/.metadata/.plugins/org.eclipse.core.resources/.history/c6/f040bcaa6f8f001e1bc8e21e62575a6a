@@ -1,0 +1,108 @@
+package com.example.demo.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.dao.porderMapper;
+import com.example.demo.dao.shopMapper;
+import com.example.demo.vo.member;
+import com.example.demo.vo.porder;
+import com.example.demo.vo.shopcart;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class shopController {
+
+	@Autowired()
+	public porderMapper pordermapper;
+	@Autowired()
+	public shopMapper shopmapper;
+	@Autowired()
+	public HttpSession session;
+
+	@GetMapping("queryshopcart")
+	public String gotoshopcart() {
+		member m = (member) session.getAttribute("M");
+		List<shopcart> s = shopmapper.queryCar(m.getUsername());
+		session.setAttribute("Spcar", s);
+
+		return "market/car";
+
+	}
+
+	@GetMapping("gomarket")
+	public String gotoMarket() {
+		List<porder> l = pordermapper.queryAll();
+
+		session.setAttribute("Porder", l);
+
+		return "market/indexM";
+	}
+
+//shop
+	@GetMapping("addshop")
+	public String addShopcart(String memberNo, String porderNo) {
+		boolean x = false;
+		List<shopcart> s = shopmapper.queryshop(memberNo);
+		for (shopcart o : s) {
+			if (o.getPorderNo().equals(porderNo)) {
+				x = true;
+			}
+		}
+		System.out.println(s);
+		if (x) {
+			shopcart spt = new shopcart();
+			spt = shopmapper.queryshopPorderNo(porderNo, memberNo);
+			spt.setShop_num(spt.getShop_num() + 1);
+			spt.setShop_sum(spt.getShop_amount() * spt.getShop_num());
+			spt.getId();
+
+			shopmapper.update(spt);
+
+		} else {
+			porder p = pordermapper.queryporderNo(porderNo);
+
+			shopcart sp = new shopcart(memberNo, porderNo, p.getAmount(), 1, p.getAmount());
+
+			shopmapper.addShop(sp);
+		}
+		return "/market/indexM";
+
+	}
+
+//car
+	@GetMapping("updateNum")
+	public String updateNum(String xx, Integer id) {
+		if (xx.equals("增加")) {
+			shopcart s = shopmapper.queryId(id);
+			s.setShop_num(s.getShop_num() + 1);
+			s.setShop_sum(s.getShop_sum() * s.getShop_num());
+			s.getId();
+			shopmapper.update(s);
+		} else if (xx == "減少") {
+			shopcart s = shopmapper.queryId(id);
+			if (s.getShop_num() - 1 == 0) {
+				shopmapper.deleteAll(id);
+			} else {
+				s.setShop_num(s.getShop_num() - 1);
+				s.setShop_sum(s.getShop_sum() * s.getShop_num());
+				s.getId();
+				shopmapper.update(s);
+			}
+		} else if (xx == "刪除") {
+			shopmapper.deleteAll(id);
+		}
+		member m = (member) session.getAttribute("M");
+		List<shopcart> l = shopmapper.queryCar(m.getUsername());
+		session.setAttribute("Spcar", l);
+
+		return "market/car";
+	}
+
+}

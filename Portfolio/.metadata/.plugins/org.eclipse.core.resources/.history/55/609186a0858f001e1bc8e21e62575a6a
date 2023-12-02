@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"  
+    import="com.example.demo.vo.member
+    ,com.example.demo.vo.porder
+    ,java.util.List"%>
+<!DOCTYPE html>
+<%
+member m=(member)session.getAttribute("M");
+List<porder> l=(List<porder>)session.getAttribute("Porder");
+
+%>
+<html>
+<head>
+<link rel="stylesheet" href="css/loginSuccess.css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table align="right" border=0 width=150>
+	<tr align="left">
+		<td><b>歡迎!</b><%=m.getName() %>
+	<tr>
+		<td>
+			<div class="dropdown">
+  <button class="dropbtn">選單</button>
+  <div class="dropdown-content">
+    <a href="index">留言板</a>
+    <a href="queryshopcart">購物車</a>
+    <a href="#">商城</a>
+    <a href="goGame">小遊戲</a>
+    <a href="setting">設定</a>
+    <a href="loginout">登出</a>
+  </div>
+</div>
+	<tr>
+		<td><br><br><br><br><br><br><br><br><br><br><br><br>
+</table>
+<h1 align="center">飛鳥商城</h1>
+<op><table width=800 border=1 align=center>
+	<tr align=center>
+		<td colspan=2>第 1 | <a href="gophone?items=電腦">2</a> | <a href="gophone?items=電動">3 | </a><a href="gophone?items=其他">4</a> 頁
+		
+	
+		
+	
+		<%
+			for(porder o:l){
+				out.println("<tr align=center><td height=250><img height=200 width=175 src=img/"+o.getImgNo()+".jpg"
+				+"><td width=70% >商品名稱: "+o.getProduct()+"<br>規格: "+o.getMode()+"<br>價格: "+o.getAmount()
+				+"<tr align=right><td colspan=2><a href=addshop?porderNo="+o.getPorderNo()+"&memberNo="+m.getMemberNo()+">加入購物車</a>"
+				+" | 已加入: "+o.getToto());
+			}
+		
+		%>
+
+
+</table></op>
+</body>
+</html>

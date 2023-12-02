@@ -1,0 +1,65 @@
+package com.example.demo.vo;
+
+public class gameplayer {
+
+	private Integer id;
+	private Integer playernub1;
+	private Integer playernub2;
+	private Integer playernub3;
+	private Integer playernub4;
+	private Integer a;
+	private Integer b;
+	public gameplayer(String playernub1, String playernub2, String playernub3, String playernub4) {
+		super();
+		this.playernub1 = playernub1;
+		this.playernub2 = playernub2;
+		this.playernub3 = playernub3;
+		this.playernub4 = playernub4;
+	}
+	public gameplayer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getPlayernub1() {
+		return playernub1;
+	}
+	public void setPlayernub1(String playernub1) {
+		this.playernub1 = playernub1;
+	}
+	public String getPlayernub2() {
+		return playernub2;
+	}
+	public void setPlayernub2(String playernub2) {
+		this.playernub2 = playernub2;
+	}
+	public String getPlayernub3() {
+		return playernub3;
+	}
+	public void setPlayernub3(String playernub3) {
+		this.playernub3 = playernub3;
+	}
+	public String getPlayernub4() {
+		return playernub4;
+	}
+	public void setPlayernub4(String playernub4) {
+		this.playernub4 = playernub4;
+	}
+	public Integer getA() {
+		return a;
+	}
+	public void setA(Integer a) {
+		this.a = a;
+	}
+	public Integer getB() {
+		return b;
+	}
+	public void setB(Integer b) {
+		this.b = b;
+	}
+}

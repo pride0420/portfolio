@@ -1,0 +1,104 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.dao.chatMapper;
+import com.example.demo.dao.likeChatMapper;
+import com.example.demo.vo.chat;
+import com.example.demo.vo.likeChat;
+import com.example.demo.vo.member;
+import com.example.demo.vo.text;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class likeChatController {
+
+	@Autowired()
+	public likeChatMapper likechatmapper;
+
+	@Autowired()
+	public HttpSession session;
+
+	@Autowired()
+	public chatMapper chatmapper;
+
+	// 新增或刪除收藏
+	@RequestMapping("addlike")
+	public String addlike(int id, HttpServletRequest request) {
+		session.removeAttribute("All");
+		member m = (member) session.getAttribute("M");
+		// 接收傳回來的貼文id
+		Integer c = Integer.parseInt(request.getParameter("id"));
+		chat cn = chatmapper.queryId(c);
+		List<likeChat> l = likechatmapper.queryUsername(m.getUsername());
+		boolean x = false;
+		for (likeChat o : l) {
+			if (o.getChatId() == c) {
+				x = true;
+				break;
+			}
+		}
+		if (x) {
+			likechatmapper.delete(cn.getId());
+
+		} else {
+			likeChat lCh = new likeChat(m.getUsername(), cn.getchatNo(), cn.getId());
+			likechatmapper.add(lCh);
+		}
+		List<likeChat> LC = likechatmapper.queryUsername(m.getUsername());
+		List<chat> ct = chatmapper.queryAll();
+		for (chat p : ct) {
+			for (likeChat o : LC) {
+				if (p.getId() == o.getChatId()) {
+					p.setLike("取消收藏");
+					break;
+				} else {
+					p.setLike("收藏");
+				}
+			}
+		}
+		session.setAttribute("All", ct);
+		return "porder/loginSuccess";
+	}
+
+	@RequestMapping("querylike")
+	public String queryLike(String username) {
+		
+		List<likeChat> l = likechatmapper.queryAll(username);
+		for(likeChat o:l) {
+			o.setLike("已收藏");
+		}
+		session.setAttribute("LC", l);
+
+		return "likechat/indexlike";
+	}
+
+	@RequestMapping("deletelike")
+	public String delete(int id) {
+
+		likechatmapper.delete(id);
+
+		return "";
+	}
+	
+	@RequestMapping("querylike2")
+	public String queryLike2(String username) {
+	
+		List<likeChat> l = likechatmapper.queryAll(username);
+		for(likeChat o:l) {
+			o.setLike("已收藏");
+		}
+		session.setAttribute("LC", l);
+		for(likeChat o:l) {
+			System.out.print(o.getName()+"\t"+o.getSubject()+"\t"+o.getContent()+"\t"+o.getLike());
+		}
+		return "likechat/indexlike";
+	}
+
+}

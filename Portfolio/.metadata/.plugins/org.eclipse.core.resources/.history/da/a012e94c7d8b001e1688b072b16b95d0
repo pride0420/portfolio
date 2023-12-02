@@ -1,0 +1,43 @@
+package com.example.demo.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.example.demo.vo.gameanswer;
+import com.example.demo.vo.gameplayer;
+
+@Mapper
+public interface gameAnswerMapper {
+
+	//ANSWER
+	//create
+	@Insert("insert into gameanswer(answernub1,answernub2,answernub3,answernub4)"
+			+ " values(#{answernub1},#{answernub2},#{answernub3},#{answernub4})")
+	void addGame(gameanswer g);
+	
+
+	//read
+	@Select("select * from gameanswer where id=#{id}")
+	gameanswer queryId(int id);
+	
+
+	//PLAYER
+	//create
+	@Insert("insert into gameplayer(playernub1,playernub2,playernub3,playernub4)"
+			+ "values(#{playernub1},#{playernub2},#{playernub3},#{playernub4})")
+	void addPlayer(gameplayer p);
+	
+	
+	//read
+	@Select("select * from gameplayer order by id desc")
+	List<gameplayer> query();
+	
+	@Select("select if(max(id) is null,0,max(id)) as maxid from portfolio.gameplayer")
+	Integer queryplayerId();
+	
+	@Select("select * from gameplayer where id=#{id}")
+	gameplayer queryplayer(int id);
+}

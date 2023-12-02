@@ -1,0 +1,109 @@
+package com.example.demo.controller;
+
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.dao.gameAnswerMapper;
+
+import com.example.demo.vo.gameanswer;
+import com.example.demo.vo.gameplayer;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class gameController {
+	
+	@Autowired()
+	public gameAnswerMapper gameanswermapper;
+	
+	@GetMapping("goGame")
+	public String gotoGame() {
+		return "game/gameindex";
+	}
+	
+	@Autowired()
+	public HttpSession session;
+	//ANSWER
+	@PostMapping("addanswer")
+	public String addanswer() {
+		int[] number=new int[9];
+		for(int i=0;i<number.length;i++){
+            number[i]=i+1;
+           }
+		show(number);
+		gameanswer ans=new gameanswer(number[0],number[1],number[2],number[3]);
+		gameanswermapper.addGame(ans);
+		gameanswer ANS=gameanswermapper.queryanswer(gameanswermapper.queryId());
+		session.setAttribute("ANS", ANS);
+		return "indexM";
+	}
+	
+	@GetMapping("addplayer")
+	public String addPlayer(Integer playernub1, Integer playernub2, Integer playernub3, Integer playernub4) {
+		
+		gameplayer gp=new gameplayer(playernub1,playernub2,playernub3,playernub4);
+		gameanswermapper.addPlayer(gp);
+		
+		gameanswer ans=(gameanswer)session.getAttribute("ANS");
+		gameplayer gpid=gameanswermapper.queryplayer(gameanswermapper.queryplayerId());
+		gpid.setA(0);
+		gpid.setB(0);
+		if(ans.getAnswernub1()==gpid.getPlayernub1()) {
+			gpid.setA(gpid.getA()+1);
+		}else {
+			gpid.setB(gpid.getB()+1);
+		}
+		if(ans.getAnswernub2()==gpid.getPlayernub2()) {
+			gpid.setA(gpid.getA()+1);
+		}else {
+			gpid.setB(gpid.getB()+1);
+		}
+		if(ans.getAnswernub3()==gpid.getPlayernub3()) {
+			gpid.setA(gpid.getA()+1);
+		}else {
+			gpid.setB(gpid.getB()+1);
+		}
+		if(ans.getAnswernub4()==gpid.getPlayernub4()) {
+			gpid.setA(gpid.getA()+1);
+		}else {
+			gpid.setB(gpid.getB()+1);
+		}
+		
+		List<gameplayer> l=gameanswermapper.query();
+		
+		session.setAttribute("Play", l);
+		
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//篩選隨機數
+	public static void show(int[] number) {
+		Random r=new Random();
+		for(int i=number.length-1;i>0;i--) {
+			int s=r.nextInt(i+1);
+			int temp=number[i];
+			number[i]=number[s];
+			number[s]=temp;
+		}
+	}
+
+}
+
+

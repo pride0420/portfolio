@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<%
+String ul=session.getAttribute("UL").toString();
+
+switch(ul){
+	case "chat":
+		String content=0.1+";URL="+"index";
+		response.setHeader("REFRESH",content);
+	break;
+	case "upchat":
+		content=0.1+";URL="+"indexlike";
+		response.setHeader("REFRESH",content);
+	break;
+}
+
+%>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

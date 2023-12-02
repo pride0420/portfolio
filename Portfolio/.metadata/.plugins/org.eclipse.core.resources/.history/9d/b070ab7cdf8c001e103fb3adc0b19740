@@ -1,0 +1,27 @@
+package com.example.demo.controller;
+
+public class textEx {
+
+	public static void main(String[] args) {
+		String[] id=new String[5];
+		String add="alter table sspmvc.text add column ";
+		int n=1;
+		String newv="p ";
+		String lasts=" varchar(45)";
+		String last=" varchar(45),";
+		for(int i=0;i<id.length;i++) {
+			
+			add=add+newv+n;
+				if(i==id.length-1&&id.length==1) {
+					add=add+lasts;
+				}else {
+					add=add+last;
+				}
+			n++;
+			System.out.println(add);
+		}
+		
+
+	}
+
+}

@@ -1,0 +1,192 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.dao.chatMapper;
+import com.example.demo.dao.likeChatMapper;
+import com.example.demo.dao.memberMapper;
+import com.example.demo.vo.chat;
+import com.example.demo.vo.likeChat;
+import com.example.demo.vo.member;
+
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class chatController {
+	
+	@Autowired()
+	public likeChatMapper likechatmapper;
+	
+	@Autowired()
+	public memberMapper membermapper;
+	
+	@Autowired()
+	public chatMapper chatmapper;
+	
+	@Autowired()
+	public HttpSession session;
+	
+	@Autowired()
+	public HttpServletRequest request;
+	@Autowired()
+	public HttpServletResponse response;
+	
+	@RequestMapping("setting")
+		public String getToSettingChat() {
+			return "porder/settingChat";
+		}
+	@RequestMapping("updateSubject")
+	public String getToSubject(int id) {
+		chat c=chatmapper.queryId(id);
+		
+		session.setAttribute("subject", c);
+		
+		return "porder/setSubject";
+	}
+	@RequestMapping("index")
+	public String getToLoginSuccess() {
+		member m=(member)session.getAttribute("M");
+		List<likeChat> LC = likechatmapper.queryUsername(m.getUsername());
+		List<chat> ct = chatmapper.queryAll();
+		for (chat p : ct) {
+			for (likeChat o : LC) {
+				if (p.getId() == o.getChatId()) {
+					p.setLike("取消收藏");
+					break;
+				} else {
+					p.setLike("收藏");
+				}
+			}
+		}
+		// 存成session
+		session.setAttribute("All", ct);
+		
+		
+		
+		return "porder/loginSuccess";
+	}
+	
+	
+	@RequestMapping("addchat")
+	public String addChat(String chatNo,String subject, String content) {
+		member m=(member)session.getAttribute("M");
+		chat c=new chat(chatNo,subject,content);
+		
+		chatmapper.addChat(c);
+		
+		List<likeChat> LC = likechatmapper.queryUsername(m.getUsername());
+		List<chat> ct = chatmapper.queryAll();
+		for (chat p : ct) {
+			for (likeChat o : LC) {
+				if (p.getId() == o.getChatId()) {
+					p.setLike("取消收藏");
+					break;
+				} else {
+					p.setLike("收藏");
+				}
+			}
+		}
+		// 存成session
+		session.setAttribute("All", ct);
+		
+		return "porder/addChatSuccess";
+	}
+	
+	@RequestMapping("queryName")
+	public String queryName() {
+		member m=(member) session.getAttribute("M");
+		
+		List<chat> p=chatmapper.queryName(m.getName());
+		session.setAttribute("Name", p);
+		
+		return "porder/chatUser";
+	}
+	
+	@RequestMapping("updatename")
+	public String updateName(String name,String phone) {
+		member m1=(member)session.getAttribute("M");
+		
+		member m=membermapper.queryUser(m1.getUsername());
+		
+		m.setName(name);
+		m.setPhone(phone);
+		membermapper.update(m);
+	
+		
+		List<likeChat> LC =likechatmapper.queryUsername(m.getUsername());
+		List<chat> ct = chatmapper.queryAll();
+		for (chat p : ct) {
+			for (likeChat o : LC) {
+				if (p.getId() == o.getChatId()) {
+					p.setLike("取消收藏");
+					// System.out.print(p.getLike());
+					break;
+				} else {
+					p.setLike("收藏");
+					// System.out.print(p.getLike());
+				}
+			}
+
+		}
+		session.setAttribute("M", m);
+		session.setAttribute("All", ct);
+		
+		return "porder/loginSuccess";
+
+	}
+	
+	@RequestMapping("update")
+	public String update(String subject,String content,int id) {
+		chat c=chatmapper.queryId(id);
+		c.setSubject(subject);
+		c.setContent(content);
+		
+		chatmapper.update(c);
+		member m=(member) session.getAttribute("M");
+		List<chat> n=chatmapper.queryName(m.getName());
+		session.setAttribute("Name", n);
+
+		List<likeChat> LC =likechatmapper.queryUsername(m.getUsername());
+		List<chat> ct = chatmapper.queryAll();
+		for (chat p : ct) {
+			for (likeChat o : LC) {
+				if (p.getId() == o.getChatId()) {
+					p.setLike("取消收藏");
+					// System.out.print(p.getLike());
+					break;
+				} else {
+					p.setLike("收藏");
+					// System.out.print(p.getLike());
+				}
+			}
+
+		}
+		
+		session.setAttribute("All", ct);
+		
+		return "porder/chatUser";
+	}
+	
+	@RequestMapping("deleteSubject")
+	public String delete(int id) {
+		chatmapper.delete(id);
+		member m=(member) session.getAttribute("M");
+		
+		List<chat> p=chatmapper.queryName(m.getName());
+		session.setAttribute("Name", p);
+		
+		
+		return "porder/chatUser";
+		
+	}
+
+
+	
+}

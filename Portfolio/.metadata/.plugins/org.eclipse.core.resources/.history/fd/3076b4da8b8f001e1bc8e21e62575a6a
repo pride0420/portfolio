@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="css/index.css">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="login" method="post">
+<div id="header"></div>
+	<div id="navigater"><table align="center" border="1" width=300>
+		<tr align="center">
+			<td>帳號:</td>
+			<td><input type="text" name="username"></td>
+		</tr>
+		<tr align="center">
+			<td>密碼:</td>
+			<td><input type="password" name="password"></td>
+		</tr>
+		<tr align="center">
+			<td colspan="2"><input type="submit" value="ok">
+			<a href="addError">註冊</td>
+			
+		</tr>
+	</table></div>
+</form>
+<div id="content"></div>
+<div id="footer"></div>
+</body>
+</html>

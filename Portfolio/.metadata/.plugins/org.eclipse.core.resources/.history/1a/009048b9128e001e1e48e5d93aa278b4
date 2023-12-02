@@ -1,0 +1,10 @@
+package com.example.demo.vo;
+
+public class market {
+
+	private Integer id;
+	private String memberNo;
+	private String porderNo;
+	private Integer sum;
+	
+}

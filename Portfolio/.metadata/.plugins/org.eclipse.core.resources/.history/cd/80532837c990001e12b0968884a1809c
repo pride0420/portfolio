@@ -1,0 +1,116 @@
+package com.example.demo.controller;
+
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.dao.gameAnswerMapper;
+
+import com.example.demo.vo.gameanswer;
+import com.example.demo.vo.gameplayer;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class gameController {
+	
+	@Autowired()
+	public gameAnswerMapper gameanswermapper;
+	
+	@GetMapping("goGame")
+	public String gotoGame() {
+		return "game/gameindex";
+	}
+	
+	
+	@Autowired()
+	public HttpSession session;
+	//ANSWER
+	@GetMapping("addanswer")
+	public String addanswer() {
+		int[] number=new int[9];
+		for(int i=0;i<number.length;i++){
+            number[i]=i+1;
+           }
+		
+		String n=show(number);;
+		gameanswer ans=new gameanswer(n);
+		gameanswermapper.addGame(ans);
+		List<Integer> ANS=gameanswermapper.queryanswerList(gameanswermapper.queryId());
+		session.setAttribute("ANS", ANS);
+		
+		return "game/playAB";
+		
+		
+	}
+	
+	
+	
+	@GetMapping("addplayer")
+	public String addPlayer(String playernub) {
+		
+		gameplayer gp=new gameplayer(playernub);
+		gameanswermapper.addPlayer(gp);
+		
+		List<Integer> ans=(List<Integer>)session.getAttribute("ANS");
+		List<Integer> gpid=gameanswermapper.queryplayerList(gameanswermapper.queryplayerId());
+		
+		Integer[] ANS=ans.toArray(new Integer[ans.size()]);
+		Integer[] Play=gpid.toArray(new Integer[gpid.size()]);
+		int A=0;
+		int B=0;
+		for(int j=0;j<4;j++) {
+			for(int i=0;i<4;i++) {
+				if(ANS[i]==Play[i]&&i==j) {
+					A++;
+				}else if(ANS[i]==Play[j]&&i!=j){
+					B++;
+				}
+			}
+		}
+		gameplayer play=gameanswermapper.queryplayer(gameanswermapper.queryplayerId());
+		play.setA(A);
+		play.setB(B);
+		gameanswermapper.update(play);
+		List<gameplayer> l=gameanswermapper.query();
+		
+		session.setAttribute("Play", l);
+		
+		return "game/playAB";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//篩選隨機數
+	public static String show(int[] number) {
+		Random r=new Random();
+		for(int i=number.length-1;i>0;i--) {
+			int s=r.nextInt(i+1);
+			int temp=number[i];
+			number[i]=number[s];
+			number[s]=temp;
+		}
+		String n="";
+		for(int i=0;i<4;i++) {
+			n=n+number[i];
+		}
+		return n;
+	}
+
+}
+
+

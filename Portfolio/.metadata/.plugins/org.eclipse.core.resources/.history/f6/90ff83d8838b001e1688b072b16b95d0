@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<from action="" method="">
+	<table width=600 align=center border=1>
+		<tr align=center>
+			<td colspan=8><h2>輸入四個數字(1~9 不重複)</h2>
+		<tr align=center>
+			<td>第一個
+			<td><input type="text" name="playernub1" maxlength=1 minlength=1 size=5>
+		<tr align=center>
+			<td>第二個
+			<td><input type="text" name="playernub2" maxlength=1 minlength=1 size=5>
+		<tr align=center>
+			<td>第三個
+			<td><input type="text" name="playernub3" maxlength=1 minlength=1 size=5>
+		<tr align=center>
+			<td>第四個
+			<td><input type="text" name="playernub4" maxlength=1 minlength=1 size=5>
+		<tr align=center>
+			<td><input type="submit" value="確定">
+	
+	</table>
+</from>
+</body>
+</html>

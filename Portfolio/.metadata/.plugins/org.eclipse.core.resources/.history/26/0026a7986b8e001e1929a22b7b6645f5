@@ -1,0 +1,92 @@
+package com.example.demo.vo;
+
+import java.sql.Timestamp;
+
+public class shopcart {
+
+	private Integer id;
+	private String memberNo;
+	private String porderNo;
+	private Integer shop_price;
+	private Integer shop_num;
+	private Integer sum;
+	private Timestamp firsttime;
+	private Timestamp updatetime;
+
+	public shopcart(String memberNo, String porderNo, Integer shop_num) {
+		super();
+		this.memberNo = memberNo;
+		this.porderNo = porderNo;
+		this.shop_num = shop_num;
+	}
+
+	public shopcart() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+
+	public String getPorderNo() {
+		return porderNo;
+	}
+
+	public void setPorderNo(String porderNo) {
+		this.porderNo = porderNo;
+	}
+
+	public Integer getShop_price() {
+		return shop_price;
+	}
+
+	public void setShop_price(Integer shop_price) {
+		this.shop_price = shop_price;
+	}
+
+	public Integer getShop_num() {
+		return shop_num;
+	}
+
+	public void setShop_num(Integer shop_num) {
+		this.shop_num = shop_num;
+	}
+
+	public Integer getSum() {
+		return sum;
+	}
+
+	public void setSum(Integer sum) {
+		this.sum = sum;
+	}
+
+	public Timestamp getFirsttime() {
+		return firsttime;
+	}
+
+	public void setFirsttime(Timestamp firsttime) {
+		this.firsttime = firsttime;
+	}
+
+	public Timestamp getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(Timestamp updatetime) {
+		this.updatetime = updatetime;
+	}
+	
+}

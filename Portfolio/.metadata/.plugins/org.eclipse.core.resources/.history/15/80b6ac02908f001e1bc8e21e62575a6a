@@ -1,0 +1,47 @@
+@charset "BIG5";
+body{
+	 background-color:  #40e0d0;
+}
+#header{
+	background-color: #F3712B;
+	width: 50%;
+	height:100px;
+	margin-left: 25%;
+	color: #132E32;
+	font-weight:800;
+	font-size:250%;
+	text-align: center;
+	padding-top: 5%;
+}
+#navigater{
+	
+	background-color:#604443;
+	width: 50%;
+	height:30px;
+	margin-left: 25%;
+	border-collapse:collapse;
+}
+#nav{
+	color:white;
+	padding-left:60%;
+	
+}
+#content{
+	background-color:#EFE7E7;
+	width: 50%;
+	height:500px;
+	margin-left: 25%;
+	padding-top: 10%;
+}
+#footer{
+	background-color:#D6C2C2;
+	width: 50%;
+	height:50px;
+	margin-left: 25%;
+}
+op table{
+	padding-top: 5%;
+	padding-bottom: 5%;
+
+
+}

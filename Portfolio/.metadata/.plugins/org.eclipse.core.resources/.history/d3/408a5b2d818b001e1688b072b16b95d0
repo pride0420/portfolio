@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/loginSuccess.css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<body>
+<table align="right" border=0 width=150>
+	<tr align="left">
+		<td><b>歡迎!</b><%=m.getName() %>
+	<tr>
+		<td>
+			<div class="dropdown">
+  <button class="dropbtn">選單</button>
+  <div class="dropdown-content">
+    <a href="queryName">我的文章</a>
+    <a href="querylike">我的最愛</a>
+    <a href="#">商城</a>
+    <a href="setting">設定</a>
+    <a href="loginout">登出</a>
+  </div>
+</div>
+	<tr>
+		<td><br><br><br><br><br><br><br><br><br><br><br><br>
+</table>
+</body>
+</html>

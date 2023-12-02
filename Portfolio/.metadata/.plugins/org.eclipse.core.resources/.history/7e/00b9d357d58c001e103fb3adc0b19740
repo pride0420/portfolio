@@ -1,0 +1,26 @@
+package com.example.demo.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.example.demo.vo.text;
+
+@Mapper
+public interface textMapper {
+
+	
+	@Insert("insert into text(porder,munch) values(#{porder},#{munch})")
+	void add(text t);
+	
+	@Insert("alter table portfolio.market add colummn ")
+	String addtable();
+	
+	@Select("select * from text")
+	List<text> queryAll();
+	@Select("select * from text where id=#{id}")
+	text queryId(int id);
+	
+}

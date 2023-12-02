@@ -1,0 +1,56 @@
+package com.example.demo.controller;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import com.example.demo.vo.text;
+
+public class textEx {
+
+	public static void main(String[] args) {
+		/*
+		String[] id=new String[2];
+		String add="alter table sspmvc.text add column ";
+		int n=1;
+		String newv="p ";
+		String lasts=" varchar(45)";
+		String last=" varchar(45),";
+		for(int i=0;i<id.length;i++) {
+			
+			add=add+newv+n;
+				if(i==id.length-1) {
+					add=add+lasts;
+				}else {
+					add=add+last;
+				}
+			n++;
+			System.out.println(add);
+		}
+		*/
+		Connection t=new textEx().getDb();
+		
+	}
+	
+	public static Connection getDb() {
+		
+		String url="jdbc:mysql://localhost:3306/sspmvc";
+		String user="root";
+		String password="1234";
+		
+		Connection conn=null;
+		
+		try {
+			Class.class.forName("com.mysql.cj.jdbc.Driver");
+			conn=DriverManager.getConnection(url, user, password);
+		} catch (ClassNotFoundException e) {
+			System.out.println("no Driver");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return conn;
+	}
+
+}

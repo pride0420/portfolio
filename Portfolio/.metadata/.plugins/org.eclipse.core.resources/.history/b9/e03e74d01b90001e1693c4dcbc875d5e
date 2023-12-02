@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<%
+String content=2+";URL="+"index";
+response.setHeader("REFRESH",content);
+
+%>
+<link rel="stylesheet" href="css/loginSuccess.css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2 align=center>新增成功</h2><br>
+<h3 align=center>即將返回頁面</h3>
+
+</body>
+</html>

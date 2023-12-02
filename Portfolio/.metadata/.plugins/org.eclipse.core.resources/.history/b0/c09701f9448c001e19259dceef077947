@@ -1,0 +1,31 @@
+package com.example.demo.vo;
+
+public class text {
+
+	private Integer id;
+	private String porder;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getPorder() {
+		return porder;
+	}
+	public void setPorder(String porder) {
+		this.porder = porder;
+	}
+	
+	public text() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public text(String porder) {
+		super();
+		this.porder = porder;
+		
+	}
+	
+}

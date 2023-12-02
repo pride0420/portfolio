@@ -1,0 +1,59 @@
+package com.example.demo.vo;
+
+public class gameanswer {
+	
+	private Integer id;
+	private Integer answernub1;
+	private Integer answernub2;
+	private Integer answernub3;
+	private Integer answernub4;
+	public gameanswer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public gameanswer(Integer answernub1, Integer answernub2, Integer answernub3, Integer answernub4) {
+		super();
+		this.answernub1 = answernub1;
+		this.answernub2 = answernub2;
+		this.answernub3 = answernub3;
+		this.answernub4 = answernub4;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getAnswernub1() {
+		return answernub1;
+	}
+	public void setAnswernub1(Integer answernub1) {
+		this.answernub1 = answernub1;
+	}
+	public Integer getAnswernub2() {
+		return answernub2;
+	}
+	public void setAnswernub2(Integer answernub2) {
+		this.answernub2 = answernub2;
+	}
+	public Integer getAnswernub3() {
+		return answernub3;
+	}
+	public void setAnswernub3(Integer answernub3) {
+		this.answernub3 = answernub3;
+	}
+	public Integer getAnswernub4() {
+		return answernub4;
+	}
+	public void setAnswernub4(Integer answernub4) {
+		this.answernub4 = answernub4;
+	}
+
+
+
+
+
+
+
+
+}

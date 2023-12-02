@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="addtext" method="get">
+	<table width=600 align="center" border="1">
+		<tr align="center">
+			<td><input type="checkbox" name="porder" value="0">男
+			<td><input type="checkbox" name="porder" value="1">女
+			<td><input type="checkbox" name="porder" value="2">蘋果
+			<td><input type="checkbox" name="porder" value="3">香蕉
+			<td><input type="checkbox" name="munch" value="1">1
+			<td><input type="checkbox" name="munch" value="2">2
+			<td><input type="checkbox" name="munch" value="3">3
+			<td><input type="checkbox" name="munch" value="4">4
+			<a href="queryAlltext">查詢</a>
+
+		<tr align="center">
+			<td><input type="submit" value="ok">
+			
+	</table>
+</form>
+
+</body>
+</html>
