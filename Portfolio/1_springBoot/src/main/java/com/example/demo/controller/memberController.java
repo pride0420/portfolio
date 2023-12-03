@@ -71,17 +71,17 @@ public class memberController {
 			return "loginError";
 		}
 	}
-
+	//新增帳號
 	@RequestMapping("add")
 	public String add(String username, String password, String name, String phone) {
-
+		//檢查帳號有無重複
 		member m1 = membermapper.queryUser(username);
 		if (m1 != null) {
 			return "addmemberError";
 		} else {
 			member m = new member(username, password, name, phone);
 			membermapper.add(m);
-
+			//捕捉新帳號的ID 存成帳號編號
 			String v = "m" + membermapper.queryId().toString();
 			m.setMemberNo(v);
 			membermapper.updateNo(m);
@@ -91,7 +91,7 @@ public class memberController {
 			return "addmemberSuccess";
 		}
 	}
-
+	//登出用
 	@RequestMapping("loginout")
 	public String loginout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
@@ -105,34 +105,6 @@ public class memberController {
 		return null;
 	}
 
-	@RequestMapping("addpos")
-	public String loginpos(String username, String password) {
-		// 登入帳號
-		// member m=membermapper.querymember(username, password);
 
-		// 成功登入的話
-		int x = 0;
-		// 先找出收藏的內容
-		List<likeChat> LC = likechatmapper.queryUsername(username);
-		List<chat> c = chatmapper.queryAll();
-
-		for (chat p : c) {
-			for (likeChat o : LC) {
-				if (p.getId() == o.getChatId()) {
-					p.setLike("關注");
-					// System.out.print(p.getLike());
-					break;
-				} else {
-					p.setLike("不關注");
-					// System.out.print(p.getLike());
-
-				}
-			}
-			System.out.print(p.getLike());
-
-		}
-
-		return " ";
-	}
 
 }

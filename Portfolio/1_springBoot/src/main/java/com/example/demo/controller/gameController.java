@@ -21,12 +21,12 @@ public class gameController {
 
 	@Autowired()
 	public gameMapper gamemapper;
-
+	//前往遊戲開始頁
 	@GetMapping("goGame")
 	public String gotoGame() {
 		return "game/gameindex";
 	}
-
+	//前往猜答案頁
 	@GetMapping("gotoplay")
 	public String gotoPlat() {
 		return "game/playAB";
@@ -35,7 +35,9 @@ public class gameController {
 	@Autowired()
 	public HttpSession session;
 
+	
 	// ANSWER
+	//新增答案
 	@GetMapping("addanswer")
 	public String addanswer() {
 		int[] number = new int[9];
@@ -44,11 +46,12 @@ public class gameController {
 		}
 
 		String n = show(number);
-		;
+		
 		gameanswer ans = new gameanswer(n);
 		gamemapper.addGame(ans);
 		List<Integer> ANS = gamemapper.queryanswerList(gamemapper.queryId());
 		session.setAttribute("ANS", ANS);
+		//刪除前面玩家猜的內容 防止遊戲中跳出在進來會造成錯亂
 		gameplayer gp = gamemapper.queryplayer(gamemapper.queryplayerId());
 		if (gp != null) {
 			gamemapper.deletePlayer(gp.getId());
@@ -57,6 +60,7 @@ public class gameController {
 	}
 
 	// player
+	//接收輸入的內容
 	@GetMapping("addplayer")
 	public String addPlayer(String playernub) {
 
@@ -65,6 +69,7 @@ public class gameController {
 
 		String ans = gamemapper.queryanswer(gamemapper.queryId()).getAnswernub();
 		String play = gamemapper.queryplayer(gamemapper.queryplayerId()).getPlayernub();
+		//將答案與玩家內容轉char陣列比對
 		char[] asw = card(ans);
 		char[] ply = card(play);
 		int A = 0;
@@ -80,7 +85,7 @@ public class gameController {
 			}
 		}
 		gameplayer gpt = gamemapper.queryplayer(gamemapper.queryplayerId() - 1);
-
+		//如果A!=4 或20次內的話 繼續遊戲 否則失敗退出
 		if (A != 4) {
 
 			gameplayer gpl = gamemapper.queryplayer(gamemapper.queryplayerId());
@@ -88,7 +93,9 @@ public class gameController {
 			gpl.setA(A);
 			gpl.setB(B);
 			if (gpt == null) {
+				//如果是第一次猜的話 次數更新為1
 				gpl.setReno(1);
+				//未達20次或非第一次 次數則往上加  達20次則失敗
 			} else if (20 - (gpt.getReno() + 1) == 0 && gpt != null) {
 				gamemapper.deletePlayer(gamemapper.queryplayerId());
 				return "game/gamelose";
@@ -97,21 +104,22 @@ public class gameController {
 			}
 
 			gpl.getId();
-			System.out.println(gpl.getReno());
 			gamemapper.update(gpl);
 			session.setAttribute("PLAY", gpl);
 			List<gameplayer> playall = gamemapper.query();
 			session.setAttribute("PLAYALL", playall);
+			
 			String ul = "gameplay";
 			session.setAttribute("UL", ul);
 			return "porder/addChatSuccess";
+			//猜對切換到成功頁
 		} else {
 			gamemapper.deletePlayer(gamemapper.queryplayerId());
 			return "game/gameover";
 		}
 	}
 
-	// 篩選隨機數
+	// 篩選隨機數 洗牌
 	public static String show(int[] number) {
 		Random r = new Random();
 		for (int i = number.length - 1; i > 0; i--) {
@@ -126,7 +134,7 @@ public class gameController {
 		}
 		return n;
 	}
-
+	//答案比對
 	public char[] card(String x) {
 		char[] c = new char[4];
 		for (int i = 0; i < 4; i++) {
