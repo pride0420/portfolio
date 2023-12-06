@@ -43,7 +43,7 @@ List<gameplayer> l=(List<gameplayer>)session.getAttribute("PLAYALL");
 			<td colspan=2><h2>輸入四個數字(1~9 不重複)</h2>
 		<tr align=center>
 			<td  width=40%>第一個
-			<td width=60%><input type="text" name="playernub" maxlength=4 minlength=4 size=10 
+			<td width=60%><input type="text" name="playernub" maxlength=4 minlength=0 size=10 
 			oninput="value=value.replace(/[^\d]/g,'')">
 			
 		<tr align=center>

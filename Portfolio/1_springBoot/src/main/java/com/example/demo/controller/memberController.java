@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.dao.chatMapper;
 import com.example.demo.dao.likeChatMapper;
 import com.example.demo.dao.memberMapper;
+import com.example.demo.service.Impl.chatServiceImpl;
 import com.example.demo.vo.chat;
 import com.example.demo.vo.likeChat;
 import com.example.demo.vo.member;
@@ -24,6 +25,10 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class memberController {
 
+	
+	@Autowired
+	public chatServiceImpl csi;
+	
 	@Autowired()
 	public memberMapper membermapper;
 
@@ -48,23 +53,11 @@ public class memberController {
 		member m = membermapper.querymember(username, password);
 		// 成功登入的話
 		if (m != null) {
-			// 先找出收藏的內容
-			List<likeChat> LC = likechatmapper.queryUsername(username);
-			List<chat> c = chatmapper.queryAll();
-			// 判斷哪些為收藏
-			for (chat p : c) {
-				for (likeChat o : LC) {
-					if (p.getId() == o.getChatId()) {
-						p.setLike("取消收藏");
-						break;
-					} else {
-						p.setLike("收藏");
-					}
-				}
-			}
-
+			//用chatServicceImpl找出帳號已收藏的貼文 在首頁顯示
+			List<chat> ct = csi.can(username);
+			
 			// 存成session
-			session.setAttribute("All", c);
+			session.setAttribute("All", ct);
 			session.setAttribute("M", m);
 			return "porder/loginSuccess";
 		} else {
@@ -85,12 +78,36 @@ public class memberController {
 			String v = "m" + membermapper.queryId().toString();
 			m.setMemberNo(v);
 			membermapper.updateNo(m);
-			
-
 
 			return "addmemberSuccess";
 		}
 	}
+	
+	// 更新帳號資訊
+		@RequestMapping("updatename")
+		public String updateName(String name, String phone) {
+			member m1 = (member) session.getAttribute("M");
+			member m = membermapper.queryUser(m1.getUsername());
+			if(name=="") {
+				m.setName(m.getName());
+			}else {
+			m.setName(name);
+			}
+			if(phone=="") {
+				m.setPhone(m.getPhone());
+			}else {
+			m.setPhone(phone);
+			}
+			membermapper.update(m);
+
+			List<chat> ct = csi.can(m.getUsername());
+			session.setAttribute("M", m);
+			session.setAttribute("All", ct);
+
+			return "porder/loginSuccess";
+		}
+
+	
 	//登出用
 	@RequestMapping("loginout")
 	public String loginout(HttpServletRequest request, HttpServletResponse response) {

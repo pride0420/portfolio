@@ -31,11 +31,14 @@ int id=Integer.parseInt(request.getParameter("id"));
     <a href="loginout">登出</a>
   </div>
 </div>
-	
+	<tr><td><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </table>
-<div id="header">飛鳥社群</div>
+<table align=center>
+	<tr align=center>
+	<td><div id="header" >飛鳥社群</div>
+</table>
 <form action="update" method="post">
-	<op><table align=center border=1 width=610 cellpadding="5" cellspacing="2">
+	<op><table align=center border=1 width=600 cellpadding="5" cellspacing="2">
 		<tr align=center>
 			<td>標題:
 			<td><input type="text" name="subject" value=<%=c.getSubject() %>>
