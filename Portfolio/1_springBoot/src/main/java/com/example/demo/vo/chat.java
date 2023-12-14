@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 //留言的vo
 
-public class chat {
+public class Chat {
 
 	private Integer id;
 	private String name;
@@ -20,13 +20,13 @@ public class chat {
 		this.firsttime = firsttime;
 	}
 	private String like;
-	public chat(String chatNo, String subject, String content) {
+	public Chat(String chatNo, String subject, String content) {
 		super();
 		this.chatNo = chatNo;
 		this.subject = subject;
 		this.content = content;
 	}
-	public chat() {
+	public Chat() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

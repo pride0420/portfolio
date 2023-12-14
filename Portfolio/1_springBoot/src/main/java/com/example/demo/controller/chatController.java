@@ -6,31 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dao.chatMapper;
-import com.example.demo.dao.likeChatMapper;
-import com.example.demo.dao.memberMapper;
-import com.example.demo.service.Impl.chatServiceImpl;
-import com.example.demo.vo.chat;
-import com.example.demo.vo.likeChat;
-import com.example.demo.vo.member;
+import com.example.demo.dao.ChatMapper;
+import com.example.demo.dao.LikeChatMapper;
+import com.example.demo.dao.MemberMapper;
+import com.example.demo.service.Impl.ChatServiceImpl;
+import com.example.demo.vo.Chat;
+import com.example.demo.vo.LikeChat;
+import com.example.demo.vo.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class chatController {
+public class ChatController {
 	@Autowired
-	public chatServiceImpl csi;
+	public ChatServiceImpl csi;
 
 	@Autowired()
-	public likeChatMapper likechatmapper;
+	public LikeChatMapper likechatmapper;
 
 	@Autowired()
-	public memberMapper membermapper;
+	public MemberMapper membermapper;
 
 	@Autowired()
-	public chatMapper chatmapper;
+	public ChatMapper chatmapper;
 
 	@Autowired()
 	public HttpSession session;
@@ -49,7 +49,7 @@ public class chatController {
 	// 前往更新貼文
 	@RequestMapping("updateSubject")
 	public String getToSubject(int id) {
-		chat c = chatmapper.queryChatId(id);
+		Chat c = chatmapper.queryChatId(id);
 
 		session.setAttribute("subject", c);
 
@@ -59,10 +59,10 @@ public class chatController {
 	// 前往首頁
 	@RequestMapping("index")
 	public String getToLoginSuccess() {
-		member m = (member) session.getAttribute("M");
+		Member m = (Member) session.getAttribute("M");
 
 		// 比對收藏方法 ServiceImpl
-		List<chat> ct = csi.can(m.getUsername());
+		List<Chat> ct = csi.can(m.getUsername());
 
 		// 存成session
 		session.setAttribute("All", ct);
@@ -72,12 +72,12 @@ public class chatController {
 	// 新增貼文
 	@RequestMapping("addchat")
 	public String addChat(String chatNo, String subject, String content) {
-		member m = (member) session.getAttribute("M");
-		chat c = new chat(chatNo, subject, content);
+		Member m = (Member) session.getAttribute("M");
+		Chat c = new Chat(chatNo, subject, content);
 
 		chatmapper.addChat(c);
 
-		List<chat> ct = csi.can(m.getUsername());
+		List<Chat> ct = csi.can(m.getUsername());
 		// 存成session
 		session.setAttribute("All", ct);
 		String ul = "chat";
@@ -88,9 +88,9 @@ public class chatController {
 	// 查看帳號貼文
 	@RequestMapping("queryName")
 	public String queryName() {
-		member m = (member) session.getAttribute("M");
+		Member m = (Member) session.getAttribute("M");
 
-		List<chat> p = chatmapper.queryChatName(m.getName());
+		List<Chat> p = chatmapper.queryChatName(m.getName());
 		session.setAttribute("Name", p);
 
 		return "porder/chatUser";
@@ -99,17 +99,17 @@ public class chatController {
 	// 修改貼文
 	@RequestMapping("update")
 	public String update(String subject, String content, int id) {
-		chat c = chatmapper.queryChatId(id);
+		Chat c = chatmapper.queryChatId(id);
 		c.setSubject(subject);
 		c.setContent(content);
 		chatmapper.updateChat(c);
 
-		member m = (member) session.getAttribute("M");
+		Member m = (Member) session.getAttribute("M");
 
-		List<chat> n = chatmapper.queryChatName(m.getName());
+		List<Chat> n = chatmapper.queryChatName(m.getName());
 		session.setAttribute("Name", n);
 
-		List<chat> ct = csi.can(m.getUsername());
+		List<Chat> ct = csi.can(m.getUsername());
 		session.setAttribute("All", ct);
 
 		return "porder/chatUser";
@@ -119,9 +119,9 @@ public class chatController {
 	@RequestMapping("deleteSubject")
 	public String delete(int id) {
 		chatmapper.deleteChat(id);
-		member m = (member) session.getAttribute("M");
+		Member m = (Member) session.getAttribute("M");
 
-		List<chat> p = chatmapper.queryChatName(m.getName());
+		List<Chat> p = chatmapper.queryChatName(m.getName());
 		session.setAttribute("Name", p);
 
 		return "porder/chatUser";

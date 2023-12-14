@@ -2,7 +2,7 @@ package com.example.demo.vo;
 
 //會員的vo
 
-public class member {
+public class Member {
 
 	private Integer id;
 	private String memberNo;
@@ -10,18 +10,18 @@ public class member {
 	private String password;
 	private String name;
 	private String phone;
-	public member(String username, String password, String name, String phone) {
+	public Member(String username, String password, String name, String phone) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.phone = phone;
 	}
-	public member(String memberNo) {
+	public Member(String memberNo) {
 		super();
 		this.memberNo = memberNo;
 	}
-	public member(String memberNo, String username, String password, String name, String phone) {
+	public Member(String memberNo, String username, String password, String name, String phone) {
 		super();
 		this.memberNo = memberNo;
 		this.username = username;
@@ -35,7 +35,7 @@ public class member {
 	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
 	}
-	public member() {
+	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

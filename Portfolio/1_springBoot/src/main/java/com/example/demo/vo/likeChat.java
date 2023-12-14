@@ -2,7 +2,7 @@ package com.example.demo.vo;
 
 //收藏留言的vo
 
-public class likeChat {
+public class LikeChat {
 
 	private Integer id;
 	private String username;
@@ -24,7 +24,7 @@ public class likeChat {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public likeChat(String username, String chatNo, Integer chatId) {
+	public LikeChat(String username, String chatNo, Integer chatId) {
 		super();
 		this.username = username;
 		this.chatNo = chatNo;
@@ -42,7 +42,7 @@ public class likeChat {
 	public void setLike(String like) {
 		this.like = like;
 	}
-	public likeChat() {
+	public LikeChat() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

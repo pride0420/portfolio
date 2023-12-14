@@ -9,35 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dao.chatMapper;
-import com.example.demo.dao.likeChatMapper;
-import com.example.demo.dao.memberMapper;
-import com.example.demo.service.Impl.chatServiceImpl;
-import com.example.demo.vo.chat;
-import com.example.demo.vo.likeChat;
-import com.example.demo.vo.member;
+import com.example.demo.dao.ChatMapper;
+import com.example.demo.dao.LikeChatMapper;
+import com.example.demo.dao.MemberMapper;
+import com.example.demo.service.Impl.ChatServiceImpl;
+import com.example.demo.vo.Chat;
+import com.example.demo.vo.LikeChat;
+import com.example.demo.vo.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class memberController {
+public class MemberController {
 
 	@Autowired
-	public chatServiceImpl csi;
+	public ChatServiceImpl csi;
 
 	@Autowired()
-	public memberMapper membermapper;
+	public MemberMapper membermapper;
 
 	@Autowired()
-	public chatMapper chatmapper;
+	public ChatMapper chatmapper;
 
 	@Autowired()
 	public HttpSession session;
 
 	@Autowired()
-	public likeChatMapper likechatmapper;
+	public LikeChatMapper likechatmapper;
 
 	@RequestMapping("addError")
 	public String getError() {
@@ -48,11 +48,11 @@ public class memberController {
 	@RequestMapping("login")
 	public String Login(String username, String password) {
 		// 登入帳號
-		member m = membermapper.queryMember(username, password);
+		Member m = membermapper.queryMember(username, password);
 		// 成功登入的話
 		if (m != null) {
 			// 用chatServicceImpl找出帳號已收藏的貼文 在首頁顯示
-			List<chat> ct = csi.can(username);
+			List<Chat> ct = csi.can(username);
 
 			// 存成session
 			session.setAttribute("All", ct);
@@ -67,11 +67,11 @@ public class memberController {
 	@RequestMapping("add")
 	public String addMember(String username, String password, String name, String phone) {
 		// 檢查帳號有無重複
-		member m1 = membermapper.queryMemberUser(username);
+		Member m1 = membermapper.queryMemberUser(username);
 		if (m1 != null) {
 			return "addmemberError";
 		} else {
-			member m = new member(username, password, name, phone);
+			Member m = new Member(username, password, name, phone);
 			membermapper.addMember(m);
 			// 捕捉新帳號的ID 存成帳號編號
 			String v = "m" + membermapper.queryMemberId().toString();
@@ -85,8 +85,8 @@ public class memberController {
 	// 更新帳號資訊
 	@RequestMapping("updatename")
 	public String updateName(String name, String phone) {
-		member m1 = (member) session.getAttribute("M");
-		member m = membermapper.queryMemberUser(m1.getUsername());
+		Member m1 = (Member) session.getAttribute("M");
+		Member m = membermapper.queryMemberUser(m1.getUsername());
 		if (name == "") {
 			m.setName(m.getName());
 		} else {
@@ -99,7 +99,7 @@ public class memberController {
 		}
 		membermapper.updateMember(m);
 
-		List<chat> ct = csi.can(m.getUsername());
+		List<Chat> ct = csi.can(m.getUsername());
 		session.setAttribute("M", m);
 		session.setAttribute("All", ct);
 

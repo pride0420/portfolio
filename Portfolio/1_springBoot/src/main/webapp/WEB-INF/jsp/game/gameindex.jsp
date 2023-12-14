@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-   import="com.example.demo.vo.member"%>
+   import="com.example.demo.vo.Member"%>
 <!DOCTYPE html>
 <%
-member m=(member)session.getAttribute("M");
-
-
+Member m=(Member)session.getAttribute("M");
 %>
 <html>
 <head>

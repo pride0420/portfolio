@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="com.example.demo.vo.member
-    ,java.util.List,com.example.demo.vo.chat"%>
+    import="com.example.demo.vo.Member,java.util.List,com.example.demo.vo.Chat"%>
 <!DOCTYPE html>
 <%
-member m=(member)session.getAttribute("M");
-List<chat> c=(List<chat>)session.getAttribute("All");
-
+Member m=(Member)session.getAttribute("M");
+List<Chat> c=(List<Chat>)session.getAttribute("All");
 %>
 <html>
 <link rel="stylesheet" href="css/loginSuccess.css">
@@ -19,7 +17,7 @@ List<chat> c=(List<chat>)session.getAttribute("All");
 <body>
 <table align="right" border=0 width=150>
 	<tr align="left">
-		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName() %></font>
+		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName()%></font>
 	<tr>
 		<td>
 			<div class="dropdown">
@@ -51,24 +49,22 @@ List<chat> c=(List<chat>)session.getAttribute("All");
 			<td colspan=2>
 			<input type="submit" value="送出"> | 
 			<input type="reset" value="清除">  
-			<input type="hidden" name="chatNo" value=<%=m.getMemberNo() %>>
+			<input type="hidden" name="chatNo" value=<%=m.getMemberNo()%>>
 	</table></op>
 </form>
 <op><table align=center border=1 width=600 cellpadding="5" cellspacing="2">
 	<%
-		for(chat o:c){
-			if(o.getLike()==null||o.getLike()==""){
-				o.setLike("收藏");
-			}
-			out.println("<tr align=center><td>留言者: "+o.getName()+"<td>標題: "+o.getSubject()
-			+"<tr align=center><td colspan=2 height=100>"+o.getContent()+
-			"<tr><td colspan=2 align=right >"+"<table align=left><tr><td>留言時間: "+o.getFirsttime().toLocaleString()+"</table>"+
-			"<a href=addlike?id="+o.getId()+">"
-			+o.getLike()+"</a><tr><td colspan=2 style=background-color:#F7A578><br>");
-			
+	for(Chat o:c){
+		if(o.getLike()==null||o.getLike()==""){
+			o.setLike("收藏");
 		}
-	
-	
+		out.println("<tr align=center><td>留言者: "+o.getName()+"<td>標題: "+o.getSubject()
+		+"<tr align=center><td colspan=2 height=100>"+o.getContent()+
+		"<tr><td colspan=2 align=right >"+"<table align=left><tr><td>留言時間: "+o.getFirsttime().toLocaleString()+"</table>"+
+		"<a href=addlike?id="+o.getId()+">"
+		+o.getLike()+"</a><tr><td colspan=2 style=background-color:#F7A578><br>");
+		
+			}
 	%>
 
 

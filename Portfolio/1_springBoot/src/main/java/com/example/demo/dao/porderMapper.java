@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.example.demo.vo.porder;
+import com.example.demo.vo.Porder;
 
 
 //商品目錄的SQL語法
@@ -13,17 +13,17 @@ import com.example.demo.vo.porder;
 
 
 @Mapper
-public interface porderMapper {
+public interface PorderMapper {
 
 	//查詢全部商品
 	@Select("select * from portfolio.porder")
-	List<porder> queryPorderAll();
+	List<Porder> queryPorderAll();
 	
 	//利用商品編號查詢對應資訊
 	@Select("select * from portfolio.porder where porderNo=#{porderNo}")
-	porder queryPorderNo(String porderNo);
+	Porder queryPorderNo(String porderNo);
 	
 	//利用分類查詢對應資訊
 	@Select("select * from portfolio.porder where items=#{items}")
-	List<porder> quetyPorderItems(String items);
+	List<Porder> quetyPorderItems(String items);
 }

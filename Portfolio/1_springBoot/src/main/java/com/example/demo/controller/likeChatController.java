@@ -6,42 +6,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dao.chatMapper;
-import com.example.demo.dao.likeChatMapper;
-import com.example.demo.service.Impl.chatServiceImpl;
-import com.example.demo.vo.chat;
-import com.example.demo.vo.likeChat;
-import com.example.demo.vo.member;
+import com.example.demo.dao.ChatMapper;
+import com.example.demo.dao.LikeChatMapper;
+import com.example.demo.service.Impl.ChatServiceImpl;
+import com.example.demo.vo.Chat;
+import com.example.demo.vo.LikeChat;
+import com.example.demo.vo.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class likeChatController {
+public class LikeChatController {
 
 	@Autowired
-	public chatServiceImpl csi;
+	public ChatServiceImpl csi;
 
 	@Autowired()
-	public likeChatMapper likechatmapper;
+	public LikeChatMapper likechatmapper;
 
 	@Autowired()
 	public HttpSession session;
 
 	@Autowired()
-	public chatMapper chatmapper;
+	public ChatMapper chatmapper;
 
 	// 新增或刪除收藏
 	@RequestMapping("addlike")
 	public String addlike(int id, HttpServletRequest request) {
 		// session.removeAttribute("All");
-		member m = (member) session.getAttribute("M");
+		Member m = (Member) session.getAttribute("M");
 
 		// 接收傳回來的貼文id 比對以收藏內容 查看是否收藏過
-		chat cn = chatmapper.queryChatId(id);
-		List<likeChat> l = likechatmapper.queryLikeChatUsername(m.getUsername());
+		Chat cn = chatmapper.queryChatId(id);
+		List<LikeChat> l = likechatmapper.queryLikeChatUsername(m.getUsername());
 		boolean x = false;
-		for (likeChat o : l) {
+		for (LikeChat o : l) {
 			if (o.getChatId() == id) {
 				x = true;
 				break;
@@ -52,11 +52,11 @@ public class likeChatController {
 
 		} else {
 			// 沒有的話就新增
-			likeChat lCh = new likeChat(m.getUsername(), cn.getchatNo(), cn.getId());
+			LikeChat lCh = new LikeChat(m.getUsername(), cn.getchatNo(), cn.getId());
 			likechatmapper.addLikeChat(lCh);
 		}
 		// 比對收藏 存成session
-		List<chat> ct = csi.can(m.getUsername());
+		List<Chat> ct = csi.can(m.getUsername());
 		session.setAttribute("All", ct);
 
 		String ul = "LIKECHAT";
@@ -67,9 +67,9 @@ public class likeChatController {
 	// 查看帳號收藏名單內容
 	@RequestMapping("querylike")
 	public String queryLike() {
-		member m = (member) session.getAttribute("M");
-		List<likeChat> l = likechatmapper.queryLikeChatAll(m.getUsername());
-		for (likeChat o : l) {
+		Member m = (Member) session.getAttribute("M");
+		List<LikeChat> l = likechatmapper.queryLikeChatAll(m.getUsername());
+		for (LikeChat o : l) {
 			o.setLike("取消收藏");
 		}
 		session.setAttribute("LC", l);
@@ -79,18 +79,18 @@ public class likeChatController {
 	// 刪除帳號收藏內容
 	@RequestMapping("deletelike")
 	public String delete(int id) {
-		likeChat lc = likechatmapper.queryLikeChatId(id);
+		LikeChat lc = likechatmapper.queryLikeChatId(id);
 
 		likechatmapper.deleteLikeChat(lc.getChatId());
-		member m = (member) session.getAttribute("M");
-		List<likeChat> l = likechatmapper.queryLikeChatAll(m.getUsername());
-		for (likeChat o : l) {
+		Member m = (Member) session.getAttribute("M");
+		List<LikeChat> l = likechatmapper.queryLikeChatAll(m.getUsername());
+		for (LikeChat o : l) {
 			o.setLike("取消收藏");
 		}
 		session.setAttribute("LC", l);
 
 		// 判斷哪些為收藏
-		List<chat> ct = csi.can(m.getUsername());
+		List<Chat> ct = csi.can(m.getUsername());
 
 		// 存成session
 		session.setAttribute("All", ct);

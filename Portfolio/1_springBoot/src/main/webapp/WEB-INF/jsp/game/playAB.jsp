@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="com.example.demo.vo.member
-    ,java.util.List,com.example.demo.vo.gameplayer"%>
+    import="com.example.demo.vo.Member,java.util.List,com.example.demo.vo.GamePlayer"%>
 <!DOCTYPE html>
 <%
-member m=(member)session.getAttribute("M");
-List<gameplayer> l=(List<gameplayer>)session.getAttribute("PLAYALL");
-
+Member m=(Member)session.getAttribute("M");
+List<GamePlayer> l=(List<GamePlayer>)session.getAttribute("PLAYALL");
 %>
 <html>
 <link rel="stylesheet" href="css/loginSuccess.css">
@@ -17,7 +15,7 @@ List<gameplayer> l=(List<gameplayer>)session.getAttribute("PLAYALL");
 <body>
 <table align="right" border=0 width=150>
 	<tr align="left">
-		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName() %></font>
+		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName()%></font>
 	<tr>
 		<td>
 			<div class="dropdown">
@@ -51,18 +49,17 @@ List<gameplayer> l=(List<gameplayer>)session.getAttribute("PLAYALL");
 	</table></op></form>
 	<op><table width=610 align=center border=1 cellpadding="5" cellspacing="2">
 	<%
-	
-		if(l!=null){
-			out.println("<tr align=center><td>次數<td>猜的數<td>共猜對<td>剩餘次數");
-		for(gameplayer o:l){
-			int x=20-o.getReno();
-			out.println("<tr align=center><td>第"+o.getReno()+
-			"次<td>"+o.getPlayernub()
-			+"<td>"+o.getA()+"A"+o.getB()+"B"
-			+"<td>"+x);
-	
-		}
-		}
+	if(l!=null){
+		out.println("<tr align=center><td>次數<td>猜的數<td>共猜對<td>剩餘次數");
+			for(GamePlayer o:l){
+		int x=20-o.getReno();
+		out.println("<tr align=center><td>第"+o.getReno()+
+		"次<td>"+o.getPlayernub()
+		+"<td>"+o.getA()+"A"+o.getB()+"B"
+		+"<td>"+x);
+		
+			}
+			}
 	%>
 	
 	

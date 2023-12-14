@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="com.example.demo.vo.member
-    ,java.util.List,com.example.demo.vo.chat"%>
+    import="com.example.demo.vo.Member,java.util.List,com.example.demo.vo.Chat"%>
 <%
-member m=(member)session.getAttribute("M");
-List<chat> c=(List<chat>)session.getAttribute("Name");
-
-
-
+Member m=(Member)session.getAttribute("M");
+List<Chat> c=(List<Chat>)session.getAttribute("Name");
 %>
 
 <!DOCTYPE html>
@@ -21,7 +17,7 @@ List<chat> c=(List<chat>)session.getAttribute("Name");
 
 <table align="right" border=0 width=150>
 	<tr align="left">
-		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName() %></font>
+		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName()%></font>
 	<tr>
 		<td>
 <div class="dropdown">
@@ -54,19 +50,18 @@ List<chat> c=(List<chat>)session.getAttribute("Name");
 			<input type="submit" value="送出">
 			<input type="reset" value="清除">
 			<a href="index"><input type ="button" value="回主畫面"></a>
-			<input type="hidden" name="name" value=<%=m.getName() %>>
+			<input type="hidden" name="name" value=<%=m.getName()%>>
 	</table></op>
 </form>
 <op><table align=center border=1 width=600 cellpadding="5" cellspacing="2">
 	<%
-	for(chat o:c){
-		out.println("<tr align=center><td>留言者: "+m.getName()+"<td>標題: "+o.getSubject()
-		+"<tr align=center><td colspan=2 height=100>"+o.getContent()+"<tr align=center><td colspan=2>"
-		+"<a href=updateSubject?id="+o.getId()+">修改貼文  |  "+"<a href=deleteSubject?id="+o.getId()+
-		">刪除貼文</a><tr><td colspan=2 style=background-color:#F7A578><br>");
-		
-	}
-	
+	for(Chat o:c){
+			out.println("<tr align=center><td>留言者: "+m.getName()+"<td>標題: "+o.getSubject()
+			+"<tr align=center><td colspan=2 height=100>"+o.getContent()+"<tr align=center><td colspan=2>"
+			+"<a href=updateSubject?id="+o.getId()+">修改貼文  |  "+"<a href=deleteSubject?id="+o.getId()+
+			">刪除貼文</a><tr><td colspan=2 style=background-color:#F7A578><br>");
+			
+		}
 	%>
 
 

@@ -3,7 +3,7 @@ package com.example.demo.vo;
 
 //遊戲_玩家的vo
 
-public class gameplayer {
+public class GamePlayer {
 
 	private Integer id;
 	private String playernub;
@@ -17,11 +17,11 @@ public class gameplayer {
 	private Integer a;
 	private Integer b;
 	
-	public gameplayer(String playernub) {
+	public GamePlayer(String playernub) {
 		super();
 		this.playernub = playernub;
 	}
-	public gameplayer() {
+	public GamePlayer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -5,29 +5,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.chatMapper;
-import com.example.demo.dao.likeChatMapper;
-import com.example.demo.service.chatService;
-import com.example.demo.vo.chat;
-import com.example.demo.vo.likeChat;
+import com.example.demo.dao.ChatMapper;
+import com.example.demo.dao.LikeChatMapper;
+import com.example.demo.service.ChatService;
+import com.example.demo.vo.Chat;
+import com.example.demo.vo.LikeChat;
 
 @Service
-public class chatServiceImpl implements chatService {
+public class ChatServiceImpl implements ChatService {
 
 	@Autowired
-	public chatMapper cm;
+	public ChatMapper cm;
 
 	@Autowired
-	public likeChatMapper lcm;
+	public LikeChatMapper lcm;
 
 	@Override
-	public List<chat> can(String username) {
+	public List<Chat> can(String username) {
 		// 先找出收藏的內容
-		List<likeChat> LC = lcm.queryLikeChatUsername(username);
+		List<LikeChat> LC = lcm.queryLikeChatUsername(username);
 		// 判斷哪些為收藏
-		List<chat> ct = cm.queryChatAll();
-		for (chat p : ct) {
-			for (likeChat o : LC) {
+		List<Chat> ct = cm.queryChatAll();
+		for (Chat p : ct) {
+			for (LikeChat o : LC) {
 				if (p.getId() == o.getChatId()) {
 					p.setLike("取消收藏");
 					break;

@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
-    import="com.example.demo.vo.member
-    ,com.example.demo.vo.porder
-    ,java.util.List"%>
+    import="com.example.demo.vo.Member,com.example.demo.vo.Porder,java.util.List"%>
 <!DOCTYPE html>
 <%
-member m=(member)session.getAttribute("M");
-List<porder> l=(List<porder>)session.getAttribute("Porder");
-
+Member m=(Member)session.getAttribute("M");
+List<Porder> l=(List<Porder>)session.getAttribute("Porder");
 %>
 <html>
 <head>
@@ -18,7 +15,7 @@ List<porder> l=(List<porder>)session.getAttribute("Porder");
 <body>
 <table align="right" border=0 width=150>
 	<tr align="left">
-		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName() %></font>
+		<td><font size=4><b>歡迎!</b></font><font size=5><%=m.getName()%></font>
 	<tr>
 		<td>
 			<div class="dropdown">
@@ -45,13 +42,12 @@ List<porder> l=(List<porder>)session.getAttribute("Porder");
 		
 	
 		<%
-			for(porder o:l){
+		for(Porder o:l){
 				out.println("<tr align=center><td height=250><img height=200 width=175 src=img/"+o.getImgNo()+".jpg"
 				+"><td width=70% >商品名稱: "+o.getProduct()+"<br>規格: "+o.getMode()+"<br>價格: "+o.getAmount()
 				+"<tr align=right><td colspan=2 style=background-color:#F7A578><a href=addshop?items=電動&porderNo="+o.getPorderNo()+"&memberNo="+m.getMemberNo()+">加入購物車</a>"
 				+" | 已加入: "+o.getToto());
 			}
-		
 		%>
 
 

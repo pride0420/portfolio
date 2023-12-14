@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dao.gameMapper;
+import com.example.demo.dao.GameMapper;
 
-import com.example.demo.vo.gameanswer;
-import com.example.demo.vo.gameplayer;
+import com.example.demo.vo.GameAnswer;
+import com.example.demo.vo.GamePlayer;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class gameController {
+public class GameController {
 
 	@Autowired()
-	public gameMapper gamemapper;
+	public GameMapper gamemapper;
 
 	// 前往遊戲開始頁
 	@GetMapping("goGame")
@@ -48,12 +48,12 @@ public class gameController {
 		// 呼叫洗牌方法
 		String n = show(number);
 
-		gameanswer ans = new gameanswer(n);
+		GameAnswer ans = new GameAnswer(n);
 		gamemapper.addGame(ans);
 		List<Integer> ANS = gamemapper.queryAnswerList(gamemapper.queryAnswerId());
 		session.setAttribute("ANS", ANS);
 		// 刪除前面玩家猜的內容 防止遊戲中跳出在進來會造成錯亂
-		gameplayer gp = gamemapper.queryPlayer(gamemapper.queryPlayerId());
+		GamePlayer gp = gamemapper.queryPlayer(gamemapper.queryPlayerId());
 		if (gp != null) {
 			gamemapper.deletePlayer(gp.getId());
 
@@ -72,7 +72,7 @@ public class gameController {
 			return "game/gameError";
 		} else {
 
-			gameplayer gp = new gameplayer(playernub);
+			GamePlayer gp = new GamePlayer(playernub);
 			gamemapper.addPlayer(gp);
 
 			String ans = gamemapper.queryAnswer(gamemapper.queryAnswerId()).getAnswernub();
@@ -93,11 +93,11 @@ public class gameController {
 					}
 				}
 			}
-			gameplayer gpt = gamemapper.queryPlayer(gamemapper.queryPlayerId() - 1);
+			GamePlayer gpt = gamemapper.queryPlayer(gamemapper.queryPlayerId() - 1);
 			// 如果A!=4 或20次內的話 繼續遊戲 否則失敗退出
 			if (A != 4) {
 
-				gameplayer gpl = gamemapper.queryPlayer(gamemapper.queryPlayerId());
+				GamePlayer gpl = gamemapper.queryPlayer(gamemapper.queryPlayerId());
 
 				gpl.setA(A);
 				gpl.setB(B);
@@ -117,7 +117,7 @@ public class gameController {
 				gamemapper.updatePlayer(gpl);
 
 				session.setAttribute("PLAY", gpl);
-				List<gameplayer> playall = gamemapper.queryPlayerAll();
+				List<GamePlayer> playall = gamemapper.queryPlayerAll();
 				session.setAttribute("PLAYALL", playall);
 
 				String ul = "gameplay";

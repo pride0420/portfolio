@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.dao.porderMapper;
-import com.example.demo.dao.shopMapper;
-import com.example.demo.vo.member;
-import com.example.demo.vo.porder;
-import com.example.demo.vo.shopcart;
+import com.example.demo.dao.PorderMapper;
+import com.example.demo.dao.ShopMapper;
+import com.example.demo.vo.Member;
+import com.example.demo.vo.Porder;
+import com.example.demo.vo.ShopCar;
 
 import jakarta.servlet.http.HttpSession;
 
 //商城及購物車的Controller
 
 @Controller
-public class shopController {
+public class ShopController {
 
 	@Autowired()
-	public porderMapper pordermapper;
+	public PorderMapper pordermapper;
 	@Autowired()
-	public shopMapper shopmapper;
+	public ShopMapper shopmapper;
 	@Autowired()
 	public HttpSession session;
 
@@ -58,8 +58,8 @@ public class shopController {
 	 */
 	@GetMapping("queryshopcar")
 	public String gotoShopCar() {
-		member m = (member) session.getAttribute("M");
-		List<shopcart> s = shopmapper.queryShopCar(m.getUsername());
+		Member m = (Member) session.getAttribute("M");
+		List<ShopCar> s = shopmapper.queryShopCar(m.getUsername());
 		session.setAttribute("Spcar", s);
 
 		return "market/car";
@@ -69,15 +69,15 @@ public class shopController {
 	// 用於從留言板進入商城，或進入其他商城分頁
 	@GetMapping("goshop")
 	public String gotoShop(String items) {
-		member m = (member) session.getAttribute("M");
+		Member m = (Member) session.getAttribute("M");
 		// 根據網頁傳來的items 找出其分類項目
-		List<porder> l = pordermapper.quetyPorderItems(items);
+		List<Porder> l = pordermapper.quetyPorderItems(items);
 		// 找出購物車收藏的資料
-		List<shopcart> s = shopmapper.queryShop(m.getMemberNo());
+		List<ShopCar> s = shopmapper.queryShop(m.getMemberNo());
 		// 將兩者比對
 		if (!s.isEmpty()) {
-			for (shopcart o : s) {
-				for (porder c : l) {
+			for (ShopCar o : s) {
+				for (Porder c : l) {
 					// 如果購物車內有的話 儲存其數量
 					if (o.getPorderNo().equals(c.getPorderNo())) {
 						c.setToto(o.getShop_num());
@@ -88,7 +88,7 @@ public class shopController {
 				}
 			}
 		} else {
-			for (porder c : l) {
+			for (Porder c : l) {
 				c.setToto(0);
 			}
 		} // 將更新好的商品資料存成session
@@ -113,15 +113,15 @@ public class shopController {
 	public String addShopcar(String memberNo, String porderNo, String items) {
 		boolean x = false;
 		// 判斷商品是否存在購物車
-		List<shopcart> s = shopmapper.queryShop(memberNo);
-		for (shopcart o : s) {
+		List<ShopCar> s = shopmapper.queryShop(memberNo);
+		for (ShopCar o : s) {
 			if (o.getPorderNo().equals(porderNo)) {
 				x = true;
 			}
 		}
 		// 如果已存在 更新購物車內的數量及金額
 		if (x) {
-			shopcart spt = new shopcart();
+			ShopCar spt = new ShopCar();
 			spt = shopmapper.queryShopPorderNo(porderNo, memberNo);
 			spt.setShop_num(spt.getShop_num() + 1);
 			spt.setShop_sum(spt.getShop_amount() * spt.getShop_num());
@@ -130,15 +130,15 @@ public class shopController {
 
 			// 如果不存在 及新增商品進購物車中
 		} else {
-			porder p = pordermapper.queryPorderNo(porderNo);
-			shopcart sp = new shopcart(memberNo, porderNo, p.getAmount(), 1, p.getAmount());
+			Porder p = pordermapper.queryPorderNo(porderNo);
+			ShopCar sp = new ShopCar(memberNo, porderNo, p.getAmount(), 1, p.getAmount());
 			shopmapper.addShop(sp);
 		}
 		// 再次比對購物車 存成session 用於更新畫面
 		s = shopmapper.queryShop(memberNo);
-		List<porder> l = pordermapper.quetyPorderItems(items);
-		for (shopcart o : s) {
-			for (porder c : l) {
+		List<Porder> l = pordermapper.quetyPorderItems(items);
+		for (ShopCar o : s) {
+			for (Porder c : l) {
 				if (o.getPorderNo().equals(c.getPorderNo())) {
 					c.setToto(o.getShop_num());
 				}
@@ -162,7 +162,7 @@ public class shopController {
 		// 根據接收的xx 增加或減少
 		if (xx.equals("增加")) {
 			// 利用ID調出需更新的產品
-			shopcart s = shopmapper.queryShopId(id);
+			ShopCar s = shopmapper.queryShopId(id);
 			// 在原數量上+1
 			s.setShop_num(s.getShop_num() + 1);
 			// 更新單品項總金額
@@ -172,7 +172,7 @@ public class shopController {
 
 		} else if (xx.equals("減少")) {
 			// 如果數量-1後=0 則直接刪除 否則數量-1
-			shopcart s = shopmapper.queryShopId(id);
+			ShopCar s = shopmapper.queryShopId(id);
 			if (s.getShop_num() - 1 == 0) {
 				shopmapper.deleteShop(id);
 			} else {
@@ -185,8 +185,8 @@ public class shopController {
 			shopmapper.deleteShop(id);
 		}
 		// 更新session
-		member m = (member) session.getAttribute("M");
-		List<shopcart> l = shopmapper.queryShopCar(m.getUsername());
+		Member m = (Member) session.getAttribute("M");
+		List<ShopCar> l = shopmapper.queryShopCar(m.getUsername());
 		session.setAttribute("Spcar", l);
 
 		String ul = "upnum";

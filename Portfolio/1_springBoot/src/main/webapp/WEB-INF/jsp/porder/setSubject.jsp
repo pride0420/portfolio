@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-   import="com.example.demo.vo.member
-    ,java.util.List,com.example.demo.vo.chat"%>
+   import="com.example.demo.vo.Member,java.util.List,com.example.demo.vo.Chat"%>
 <!DOCTYPE html>
 <%
-member m=(member)session.getAttribute("M");
-chat c=(chat)session.getAttribute("subject");
+Member m=(Member)session.getAttribute("M");
+Chat c=(Chat)session.getAttribute("subject");
 int id=Integer.parseInt(request.getParameter("id"));
 %>
 <html>

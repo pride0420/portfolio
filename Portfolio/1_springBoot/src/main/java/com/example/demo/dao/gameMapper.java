@@ -8,20 +8,20 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.example.demo.vo.gameanswer;
-import com.example.demo.vo.gameplayer;
+import com.example.demo.vo.GameAnswer;
+import com.example.demo.vo.GamePlayer;
 
 //遊戲的SQL語法 包含gameanswer(題目) 及 gameplayer(玩家方)的table
 
 @Mapper
-public interface gameMapper {
+public interface GameMapper {
 
 	//ANSWER
 	//create
 	//新增題目
 	@Insert("insert into gameanswer(answernub)"
 			+ " values(#{answernub})")
-	void addGame(gameanswer g);
+	void addGame(GameAnswer g);
 	
 
 	//read
@@ -31,7 +31,7 @@ public interface gameMapper {
 	
 	//搭配ID查詢其內容
 	@Select("select * from gameanswer where id=#{id}")
-	gameanswer queryAnswer(int id);
+	GameAnswer queryAnswer(int id);
 	
 	//儲存題目
 	@Select("select * from gameanswer where id=#{id}")
@@ -44,13 +44,13 @@ public interface gameMapper {
 	//接收玩家輸入的數字
 	@Insert("insert into gameplayer(playernub)"
 			+ "values(#{playernub})")
-	void addPlayer(gameplayer p);
+	void addPlayer(GamePlayer p);
 	
 	
 	//read
 	//將資料由新到舊儲存
 	@Select("select * from gameplayer order by id desc")
-	List<gameplayer> queryPlayerAll();
+	List<GamePlayer> queryPlayerAll();
 	
 	//查詢最新一筆資料ID
 	@Select("select if(max(id) is null,0,max(id)) as maxid from portfolio.gameplayer")
@@ -58,7 +58,7 @@ public interface gameMapper {
 	
 	//搭配ID獲取最新一筆資料
 	@Select("select * from portfolio.gameplayer where id=#{id}")
-	gameplayer queryPlayer(int id);
+	GamePlayer queryPlayer(int id);
 	
 	//delete
 	//刪除歷史猜題記錄，用於結束時
@@ -68,5 +68,5 @@ public interface gameMapper {
 	//update
 	//更新比對後的A、B數量
 	@Update("update gameplayer set a=#{a},b=#{b},reno=#{reno} where id=#{id}")
-	void updatePlayer(gameplayer gp);
+	void updatePlayer(GamePlayer gp);
 }

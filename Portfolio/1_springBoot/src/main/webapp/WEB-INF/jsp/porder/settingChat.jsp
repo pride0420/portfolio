@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     import="com.example.demo.vo.member
-    ,java.util.List,com.example.demo.vo.chat"%>
+     import="com.example.demo.vo.Member,java.util.List,com.example.demo.vo.Chat"%>
 <%
-member m=(member)session.getAttribute("M");
-
+Member m=(Member)session.getAttribute("M");
 %>
 <!DOCTYPE html>
 <html>

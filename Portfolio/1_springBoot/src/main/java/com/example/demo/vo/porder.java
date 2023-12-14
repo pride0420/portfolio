@@ -2,7 +2,7 @@ package com.example.demo.vo;
 
 //商品的vo
 
-public class porder {
+public class Porder {
 	
 	private Integer id;
 	private String product;

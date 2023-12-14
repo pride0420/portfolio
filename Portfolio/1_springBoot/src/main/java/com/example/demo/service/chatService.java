@@ -2,9 +2,9 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.vo.chat;
+import com.example.demo.vo.Chat;
 
-public interface chatService {
+public interface ChatService {
 
-	List<chat> can(String username);
+	List<Chat> can(String username);
 }

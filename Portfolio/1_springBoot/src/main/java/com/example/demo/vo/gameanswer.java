@@ -3,15 +3,15 @@ package com.example.demo.vo;
 
 //遊戲_答案的vo
 
-public class gameanswer {
+public class GameAnswer {
 	
 	private Integer id;
 	private String answernub;
-	public gameanswer(String answernub) {
+	public GameAnswer(String answernub) {
 		super();
 		this.answernub = answernub;
 	}
-	public gameanswer() {
+	public GameAnswer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
