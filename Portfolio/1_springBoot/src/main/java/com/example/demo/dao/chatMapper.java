@@ -16,40 +16,34 @@ import com.example.demo.vo.chat;
  * 及 view_number(結合 member、chat)
  */
 
-
 @Mapper
 public interface chatMapper {
-	//create
-	//新增貼文
+	// create
+	// 新增貼文
 	@Insert("insert into chat(chatNo,subject,content) values(#{chatNo},#{subject},#{content})")
 	void addChat(chat c);
-	
-	//read
-	//撈出全部貼文
+
+	// read
+	// 撈出全部貼文
 	@Select("select * from number order by id desc")
-	List<chat> queryAll();
-	
-	//找出帳號收藏得貼文
+	List<chat> queryChatAll();
+
+	// 找出帳號收藏得貼文
 	@Select("select * from number where name=#{name} order by id desc")
-	List<chat> queryName(String name);
-	
-	//利用ID查詢資料
+	List<chat> queryChatName(String name);
+
+	// 利用ID查詢資料
 	@Select("select * from chat where id=#{id}")
-	chat queryId(int id);
-	
-	
-	//update
-	//搭配ID修改貼文標題及內容
+	chat queryChatId(int id);
+
+	// update
+	// 搭配ID修改貼文標題及內容
 	@Update("update chat set subject=#{subject},content=#{content} where id=#{id}")
-	void update(chat c);
-	
-	
-	
-	//delete
-	//刪除貼文
+	void updateChat(chat c);
+
+	// delete
+	// 刪除貼文
 	@Delete("delete from chat where id=#{id}")
-	void delete(int id);
-	
-	
-	
+	void deleteChat(int id);
+
 }

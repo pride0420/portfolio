@@ -49,7 +49,7 @@ public class chatController {
 	// 前往更新貼文
 	@RequestMapping("updateSubject")
 	public String getToSubject(int id) {
-		chat c = chatmapper.queryId(id);
+		chat c = chatmapper.queryChatId(id);
 
 		session.setAttribute("subject", c);
 
@@ -63,12 +63,7 @@ public class chatController {
 
 		// 比對收藏方法 ServiceImpl
 		List<chat> ct = csi.can(m.getUsername());
-		/*
-		 * List<likeChat> LC = likechatmapper.queryUsername(m.getUsername()); List<chat>
-		 * ct = chatmapper.queryAll(); for (chat p : ct) { for (likeChat o : LC) { if
-		 * (p.getId() == o.getChatId()) { p.setLike("取消收藏"); break; } else {
-		 * p.setLike("收藏"); } } }
-		 */
+
 		// 存成session
 		session.setAttribute("All", ct);
 		return "porder/loginSuccess";
@@ -87,7 +82,7 @@ public class chatController {
 		session.setAttribute("All", ct);
 		String ul = "chat";
 		session.setAttribute("UL", ul);
-		return "porder/addChatSuccess";
+		return "porder/empty";
 	}
 
 	// 查看帳號貼文
@@ -95,7 +90,7 @@ public class chatController {
 	public String queryName() {
 		member m = (member) session.getAttribute("M");
 
-		List<chat> p = chatmapper.queryName(m.getName());
+		List<chat> p = chatmapper.queryChatName(m.getName());
 		session.setAttribute("Name", p);
 
 		return "porder/chatUser";
@@ -104,14 +99,14 @@ public class chatController {
 	// 修改貼文
 	@RequestMapping("update")
 	public String update(String subject, String content, int id) {
-		chat c = chatmapper.queryId(id);
+		chat c = chatmapper.queryChatId(id);
 		c.setSubject(subject);
 		c.setContent(content);
-		chatmapper.update(c);
-		
+		chatmapper.updateChat(c);
+
 		member m = (member) session.getAttribute("M");
 
-		List<chat> n = chatmapper.queryName(m.getName());
+		List<chat> n = chatmapper.queryChatName(m.getName());
 		session.setAttribute("Name", n);
 
 		List<chat> ct = csi.can(m.getUsername());
@@ -123,10 +118,10 @@ public class chatController {
 	// 刪除貼文
 	@RequestMapping("deleteSubject")
 	public String delete(int id) {
-		chatmapper.delete(id);
+		chatmapper.deleteChat(id);
 		member m = (member) session.getAttribute("M");
 
-		List<chat> p = chatmapper.queryName(m.getName());
+		List<chat> p = chatmapper.queryChatName(m.getName());
 		session.setAttribute("Name", p);
 
 		return "porder/chatUser";

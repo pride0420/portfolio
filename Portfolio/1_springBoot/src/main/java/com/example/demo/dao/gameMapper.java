@@ -27,15 +27,15 @@ public interface gameMapper {
 	//read
 	//查詢最新一筆題目ID，用在開新遊戲時
 	@Select("select if(max(id) is null,0,max(id)) as maxid from portfolio.gameanswer")
-	Integer queryId();
+	Integer queryAnswerId();
 	
 	//搭配ID查詢其內容
 	@Select("select * from gameanswer where id=#{id}")
-	gameanswer queryanswer(int id);
+	gameanswer queryAnswer(int id);
 	
 	//儲存題目
 	@Select("select * from gameanswer where id=#{id}")
-	List<Integer> queryanswerList(int id);
+	List<Integer> queryAnswerList(int id);
 	
 	
 
@@ -50,15 +50,15 @@ public interface gameMapper {
 	//read
 	//將資料由新到舊儲存
 	@Select("select * from gameplayer order by id desc")
-	List<gameplayer> query();
+	List<gameplayer> queryPlayerAll();
 	
 	//查詢最新一筆資料ID
 	@Select("select if(max(id) is null,0,max(id)) as maxid from portfolio.gameplayer")
-	Integer queryplayerId();
+	Integer queryPlayerId();
 	
 	//搭配ID獲取最新一筆資料
 	@Select("select * from portfolio.gameplayer where id=#{id}")
-	gameplayer queryplayer(int id);
+	gameplayer queryPlayer(int id);
 	
 	//delete
 	//刪除歷史猜題記錄，用於結束時
@@ -68,5 +68,5 @@ public interface gameMapper {
 	//update
 	//更新比對後的A、B數量
 	@Update("update gameplayer set a=#{a},b=#{b},reno=#{reno} where id=#{id}")
-	void update(gameplayer gp);
+	void updatePlayer(gameplayer gp);
 }

@@ -16,6 +16,7 @@ public class shopcart {
 	private Timestamp updatetime;
 	private String mode;
 	private String items;
+
 	public String getItems() {
 		return items;
 	}
@@ -36,7 +37,6 @@ public class shopcart {
 	private String name;
 	private String product;
 	private String imgNo;
-	
 
 	public String getImgNo() {
 		return imgNo;
@@ -114,7 +114,7 @@ public class shopcart {
 	public void setShop_num(Integer shop_num) {
 		this.shop_num = shop_num;
 	}
-	
+
 	public Integer getShop_sum() {
 		return shop_sum;
 	}
@@ -147,5 +147,5 @@ public class shopcart {
 	public void setUpdatetime(Timestamp updatetime) {
 		this.updatetime = updatetime;
 	}
-	
+
 }

@@ -12,20 +12,20 @@ import com.example.demo.vo.chat;
 import com.example.demo.vo.likeChat;
 
 @Service
-public class chatServiceImpl implements chatService{
+public class chatServiceImpl implements chatService {
 
 	@Autowired
 	public chatMapper cm;
-	
+
 	@Autowired
 	public likeChatMapper lcm;
-	
+
 	@Override
 	public List<chat> can(String username) {
 		// 先找出收藏的內容
-		List<likeChat> LC =lcm.queryUsername(username);
+		List<likeChat> LC = lcm.queryLikeChatUsername(username);
 		// 判斷哪些為收藏
-		List<chat> ct = cm.queryAll();
+		List<chat> ct = cm.queryChatAll();
 		for (chat p : ct) {
 			for (likeChat o : LC) {
 				if (p.getId() == o.getChatId()) {

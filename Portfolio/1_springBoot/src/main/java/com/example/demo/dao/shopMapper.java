@@ -26,27 +26,27 @@ public interface shopMapper {
 	//查詢
 	//利用帳號編號 查詢購物車的商品編號及其數量
 	@Select("select porderNo,shop_num from portfolio.shopcart where memberNo=#{memberNo}")
-	List<shopcart> queryshop(String memberNo);
+	List<shopcart> queryShop(String memberNo);
 	
 	//查詢此帳號的單種商品 用於快速確認是否已存在購物車中
 	@Select("select * from portfolio.shopcart where porderNo=#{porderNo} and memberNo=#{memberNo}")
-	shopcart queryshopPorderNo(String porderNo,String memberNo);
+	shopcart queryShopPorderNo(String porderNo,String memberNo);
 	
 	//利用id編號查詢對應內容
 	@Select("select * from portfolio.shopcart where id=#{id}")
-	shopcart queryId(int id);
+	shopcart queryShopId(int id);
 	
 	//查詢整個帳號購物車的內容
 	@Select("select * from portfolio.spcar where username=#{username}")
-	List<shopcart> queryCar(String username);
+	List<shopcart> queryShopCar(String username);
 	
 	//配合queryId 更新購物車的數量
 	@Update("update portfolio.shopcart set shop_num=#{shop_num},shop_sum=#{shop_sum} where id=#{id}")
-	void update(shopcart s);
+	void updateShop(shopcart s);
 	
 	//刪除購物車內容
 	@Delete("delete from portfolio.shopcart where id=#{id}")
-	void deleteAll(int id);
+	void deleteShop(int id);
 	
 
 }

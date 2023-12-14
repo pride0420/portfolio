@@ -26,7 +26,7 @@ List<likeChat> l=(List<likeChat>)session.getAttribute("LC");
   <div class="dropdown-content">
     <a href="queryName?name="<%=m.getName() %>>我的文章</a>
     <a href="querylike">我的最愛</a>
-    <a href="gophone?items=手機">商城</a>
+    <a href="goshop?items=手機">商城</a>
     <a href="goGame">小遊戲</a>
     <a href="setting">設定</a>
     <a href="loginout">登出</a>

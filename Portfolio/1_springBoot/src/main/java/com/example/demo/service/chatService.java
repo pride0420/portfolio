@@ -6,6 +6,5 @@ import com.example.demo.vo.chat;
 
 public interface chatService {
 
-	
 	List<chat> can(String username);
 }

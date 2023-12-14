@@ -17,13 +17,13 @@ public interface porderMapper {
 
 	//查詢全部商品
 	@Select("select * from portfolio.porder")
-	List<porder> queryAll();
+	List<porder> queryPorderAll();
 	
 	//利用商品編號查詢對應資訊
 	@Select("select * from portfolio.porder where porderNo=#{porderNo}")
-	porder queryporderNo(String porderNo);
+	porder queryPorderNo(String porderNo);
 	
 	//利用分類查詢對應資訊
 	@Select("select * from portfolio.porder where items=#{items}")
-	List<porder> quetyItems(String items);
+	List<porder> quetyPorderItems(String items);
 }

@@ -25,7 +25,7 @@ List<porder> l=(List<porder>)session.getAttribute("Porder");
   <button class="dropbtn">選單</button>
   <div class="dropdown-content">
     <a href="index">留言板</a>
-    <a href="queryshopcart">購物車</a>
+    <a href="queryshopcar">購物車</a>
     <a href="goGame">小遊戲</a>
     <a href="setting">設定</a>
     <a href="loginout">登出</a>
@@ -39,7 +39,7 @@ List<porder> l=(List<porder>)session.getAttribute("Porder");
 </table>
 <op><table width=600 border=1 align=center cellpadding="5" cellspacing="2">
 	<tr align=center>
-		<td colspan=2 style=background-color:#7AB6CD>第 1 | <a href="gophone?items=電腦">2</a> | <a href="gophone?items=電動">3 | </a><a href="gophone?items=其他">4</a> 頁
+		<td colspan=2 style=background-color:#7AB6CD>第 1 | <a href="goshop?items=電腦">2</a> | <a href="goshop?items=電動">3 | </a><a href="goshop?items=其他">4</a> 頁
 		
 	
 		

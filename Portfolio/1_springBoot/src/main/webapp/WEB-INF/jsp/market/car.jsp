@@ -32,8 +32,11 @@ for(shopcart s:l){
 				<div class="dropdown">
 					<button class="dropbtn">選單</button>
 					<div class="dropdown-content">
-						<a href="index">留言板</a> <a href="queryshopcart">購物車</a> <a
-							href="gophone?items=手機">商城</a> <a href="goGame">小遊戲</a> <a href="setting">設定</a>
+						<a href="index">留言板</a> 
+  						<a href="queryshopcar">購物車</a> 
+						<a href="goshop?items=手機">商城</a> 
+						<a href="goGame">小遊戲</a> 
+						<a href="setting">設定</a>
 						<a href="loginout">登出</a>
 					</div>
 			</div>
@@ -45,7 +48,7 @@ for(shopcart s:l){
 </table>
 <op><table width=600 border=1 align=center cellpadding="5" cellspacing="2">
 <tr align=center>
-			<td colspan=2 style=background-color:#7AB6CD><a href="gophone?items=手機"><input type ="button" value="回商城"></a> | 
+			<td colspan=2 style=background-color:#7AB6CD><a href="goshop?items=手機"><input type ="button" value="回商城"></a> | 
 				購物車總金額: <font color=red><b><%=Total %></b></font>
 				<%
 				for (shopcart o : l) {

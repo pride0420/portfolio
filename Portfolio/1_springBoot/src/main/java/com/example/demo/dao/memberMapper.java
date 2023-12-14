@@ -20,36 +20,36 @@ public interface memberMapper {
 	//新增會員帳號
 	@Insert("insert into member(memberNo,username,password,name,phone)"
 			+ "values(#{memberNo},#{username},#{password},#{name},#{phone})")
-	void add(member m);
+	void addMember(member m);
 	//生成會員編號並新增
 	@Insert("insert into member(memberNo) values(#{memberNo})")
-	void addNo(member m);
+	void addMemberNo(member m);
 	
 	//read
 	//查詢帳號及密碼，用於登入
 	@Select("select * from member where username=#{username} and password=#{password}")
-	member querymember(String username,String password);
+	member queryMember(String username,String password);
 	
 	//查詢帳號，檢查是否重複
 	@Select("select * from member where username=#{username}")
-	member queryUser(String username);
+	member queryMemberUser(String username);
 	
 	//查最新的帳號ID，用於搭配生成會員編號
 	@Select("select if(max(id) is null,0,max(id)) as maxid from portfolio.member")
-	Integer queryId();
+	Integer queryMemberId();
 	
 	
 	//update
 	//更改會員姓名及電話
 	@Update("update member set name=#{name},phone=#{phone} where username=#{username}")
-	void update(member m);
+	void updateMember(member m);
 	
 	//用於新增對應的會員編號
 	@Update("update member set memberNo=#{memberNo} where username=#{username}")
-	void updateNo(member m);
+	void updateMemberNo(member m);
 	
 	//delete
 	//刪除會員
 	@Delete("delete from member where id=#{id}")
-	void delete(int id);
+	void deleteMember(int id);
 }

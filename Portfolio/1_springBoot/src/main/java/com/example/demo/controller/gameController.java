@@ -40,7 +40,7 @@ public class gameController {
 	// ANSWER
 	// 新增答案
 	@GetMapping("addanswer")
-	public String addanswer() {
+	public String addAnswer() {
 		int[] number = new int[9];
 		for (int i = 0; i < number.length; i++) {
 			number[i] = i + 1;
@@ -50,10 +50,10 @@ public class gameController {
 
 		gameanswer ans = new gameanswer(n);
 		gamemapper.addGame(ans);
-		List<Integer> ANS = gamemapper.queryanswerList(gamemapper.queryId());
+		List<Integer> ANS = gamemapper.queryAnswerList(gamemapper.queryAnswerId());
 		session.setAttribute("ANS", ANS);
 		// 刪除前面玩家猜的內容 防止遊戲中跳出在進來會造成錯亂
-		gameplayer gp = gamemapper.queryplayer(gamemapper.queryplayerId());
+		gameplayer gp = gamemapper.queryPlayer(gamemapper.queryPlayerId());
 		if (gp != null) {
 			gamemapper.deletePlayer(gp.getId());
 
@@ -66,7 +66,7 @@ public class gameController {
 	// 接收輸入的內容
 	@GetMapping("addplayer")
 	public String addPlayer(String playernub) {
-		//判斷是否符合規則
+		// 判斷是否符合規則
 		boolean y = PB(playernub);
 		if (!y) {
 			return "game/gameError";
@@ -75,8 +75,8 @@ public class gameController {
 			gameplayer gp = new gameplayer(playernub);
 			gamemapper.addPlayer(gp);
 
-			String ans = gamemapper.queryanswer(gamemapper.queryId()).getAnswernub();
-			String play = gamemapper.queryplayer(gamemapper.queryplayerId()).getPlayernub();
+			String ans = gamemapper.queryAnswer(gamemapper.queryAnswerId()).getAnswernub();
+			String play = gamemapper.queryPlayer(gamemapper.queryPlayerId()).getPlayernub();
 			// 將答案與玩家內容轉char陣列比對
 			char[] asw = card(ans);
 			char[] ply = card(play);
@@ -93,11 +93,11 @@ public class gameController {
 					}
 				}
 			}
-			gameplayer gpt = gamemapper.queryplayer(gamemapper.queryplayerId() - 1);
+			gameplayer gpt = gamemapper.queryPlayer(gamemapper.queryPlayerId() - 1);
 			// 如果A!=4 或20次內的話 繼續遊戲 否則失敗退出
 			if (A != 4) {
 
-				gameplayer gpl = gamemapper.queryplayer(gamemapper.queryplayerId());
+				gameplayer gpl = gamemapper.queryPlayer(gamemapper.queryPlayerId());
 
 				gpl.setA(A);
 				gpl.setB(B);
@@ -106,7 +106,7 @@ public class gameController {
 					gpl.setReno(1);
 					// 未達20次或非第一次 次數則往上加 達20次則失敗
 				} else if (20 - (gpt.getReno() + 1) == 0 && gpt != null) {
-					gamemapper.deletePlayer(gamemapper.queryplayerId());
+					gamemapper.deletePlayer(gamemapper.queryPlayerId());
 					return "game/gamelose";
 				} else {
 					gpl.setReno(gpt.getReno() + 1);
@@ -114,19 +114,19 @@ public class gameController {
 
 				// gpl.getId();
 				// 更新AB的數量
-				gamemapper.update(gpl);
+				gamemapper.updatePlayer(gpl);
 
 				session.setAttribute("PLAY", gpl);
-				List<gameplayer> playall = gamemapper.query();
+				List<gameplayer> playall = gamemapper.queryPlayerAll();
 				session.setAttribute("PLAYALL", playall);
 
 				String ul = "gameplay";
 				session.setAttribute("UL", ul);
-				return "porder/addChatSuccess";
+				return "porder/empty";
 
 				// 猜對切換到成功頁
 			} else {
-				gamemapper.deletePlayer(gamemapper.queryplayerId());
+				gamemapper.deletePlayer(gamemapper.queryPlayerId());
 				return "game/gameover";
 			}
 		}
@@ -159,7 +159,7 @@ public class gameController {
 		return c;
 	}
 
-	//實現規則
+	// 實現規則
 	public boolean PB(String x) {
 		boolean z = true;
 
